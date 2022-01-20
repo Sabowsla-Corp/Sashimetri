@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
 
 class CrearCapa extends StatelessWidget {
-  const CrearCapa({Key key}) : super(key: key);
+  const CrearCapa({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

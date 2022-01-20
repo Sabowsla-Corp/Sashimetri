@@ -1,33 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/workspace/sashimetrifunctions.dart';
+import 'package:sashimetri/workspace/sashi_functions.dart';
 
 class LayerModel {
   List<Offset> points;
   Color color;
   double thickness;
   bool visible;
- String name;
+  String name;
   bool symetryc;
   bool gridSnapping;
   GridType gridType;
   List<Offset> grid;
   bool selected;
-
+  double gridScale = 50;
+  Color currentColor = Colors.white10;
+  double maxGlow = 5;
+  double glowSize = 2;
+  double minGlow = 0;
+  int gridExtent = 20;
+  int radialDivisions = 20;
   int subdivisions;
 
   LayerModel({
-    this.points,
-    this.color,
-    this.name : "Capa 0",
-    this.selected: false,
+    required this.points,
+    this.color: Colors.white,
+    this.name: "Capa 0",
+    this.selected: true,
     this.thickness: 1,
     this.visible: true,
     this.subdivisions: 10,
     this.symetryc: true,
     this.gridSnapping: false,
     this.gridType: GridType.squared,
-    @required this.grid,
-  });
+    required this.grid,
+  }) {
+    points = [
+      Offset(300, 0),
+      Offset(0, 0),
+      Offset(0, 300),
+    ];
+    setGridType(gridType);
+  }
 
   void changeColor(Color newColor) {
     color = newColor;
@@ -35,6 +48,15 @@ class LayerModel {
 
   void toggleVisibility() {
     visible = !visible;
+  }
+
+  void adjustGridScale(double delta) {
+    gridScale += delta;
+    if (gridScale < 10) {
+      gridScale = 30;
+    }
+    setGridType(gridType);
+    snapPoints();
   }
 
   void draw(Paint paint, Canvas canvas, Offset center) {
@@ -80,7 +102,7 @@ class LayerModel {
   }
 
   List<List<Offset>> symetrycMetriPoints(points) {
-    List<List<Offset>> temp =[];
+    List<List<Offset>> temp = [];
     temp.add(invertX(points));
     temp.add(invertY(points));
     temp.add(invertXY(points));
@@ -113,7 +135,7 @@ class LayerModel {
 
   void snapPoints() {
     for (int i = 0; i < points.length; i++) {
-      int nearestGridIndex;
+      int nearestGridIndex = 0;
       double near = double.infinity;
       for (int k = 0; k < grid.length; k++) {
         double d = abs((grid[k] - points[i]).distance);
@@ -126,16 +148,18 @@ class LayerModel {
     }
   }
 
-  void calculateGrid() {
-    switch (gridType) {
+  void setGridType(GridType _newGrid) {
+    print("Set up Grid Type");
+    gridType = _newGrid;
+    switch (_newGrid) {
       case GridType.circular:
-        grid = createCircularGrid(10, 30, 50);
+        grid = createCircularGrid(10, 30, gridScale);
         break;
       case GridType.squared:
-        grid = createSquaredGrid(50, 10);
+        grid = createSquaredGrid(gridScale, 10);
         break;
       default:
-        grid = createSquaredGrid(50, 10);
+        grid = createSquaredGrid(gridScale, 10);
         break;
     }
   }
@@ -143,8 +167,4 @@ class LayerModel {
 
 void snapedPointOnEdge() {}
 
-enum GridType {
-  circular,
-
-  squared
-}
+enum GridType { circular, squared }

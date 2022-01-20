@@ -5,7 +5,7 @@ import 'package:sashimetri/models/app_data.dart';
 class GlowPainter extends CustomPainter {
   final AppData model;
 
-  GlowPainter({this.model});
+  GlowPainter({required this.model});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -18,5 +18,5 @@ class GlowPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(GlowPainter old) => model.repaintWorkspace;
+  bool shouldRepaint(GlowPainter old) => false;
 }

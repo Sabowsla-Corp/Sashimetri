@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/workspace/sashimetrifunctions.dart';
+import 'package:sashimetri/workspace/sashi_functions.dart';
 import 'layer_model.dart';
 import '../tools/toolpanel.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -8,57 +8,43 @@ class AppData extends Model {
   AppData() {
     setupAppData();
   }
-
   static AppData of(BuildContext context, {bool rebuild: true}) {
     return ScopedModel.of<AppData>(context, rebuildOnChange: rebuild);
   }
 
-  LayerModel selectedLayer;
-  int blendModeIndex = 0;
   int selectedMetriIndex = 0;
   int lastMetriPointIndex = 0;
-  bool symmetry = false;
-  bool onDrawView = false;
-  bool onDragPanel = false;
-  bool onTranslateMode = false;
-  bool repaintWorkspace = true;
-  bool cuadriculaActiva = false;
   bool canChangeMetriIndex = true;
   bool onBackgroundColorSelection = false;
-
   DragPoints currentToolPostion = DragPoints.left;
-
-  Color currentColor;
-  double maxGlow = 5;
-  double glowSize = 2;
-  double minGlow = 0;
-  double gridScale = 50;
-  int gridExtent = 20;
-  int radialDivisions = 20;
-  List<Offset> grid;
   Color backgroundColor = Colors.black;
   BlendMode blendMode = BlendMode.srcOver;
-
   Offset canvasCenter = Offset(0, 0);
-
-  GridType tipoCuadricula = GridType.squared;
   List<LayerModel> proyectLayers = [];
+  LayerModel selectedLayer = LayerModel(
+    points: [
+      Offset(300, 0),
+      Offset(300, 0),
+      Offset(300, 0),
+    ],
+    grid: createSquaredGrid(50, 10),
+  );
 
-
-  void setupAppData() {}
+  void setupAppData() {
+    selectedLayer = LayerModel(
+      points: [
+        Offset(300, 0),
+        Offset(300, 0),
+        Offset(300, 0),
+      ],
+      grid: createSquaredGrid(50, 10),
+    );
+    proyectLayers.add(selectedLayer);
+    notifyListeners();
+  }
 
   void selectLayer(LayerModel _layerModel) {
     selectedLayer = _layerModel;
-    notifyListeners();
-  }
-
-  void starDragView() {
-    onDrawView = true;
-    notifyListeners();
-  }
-
-  void endDragView() {
-    onDrawView = false;
     notifyListeners();
   }
 
@@ -75,11 +61,6 @@ class AppData extends Model {
     notifyListeners();
   }
 
-  void startRepaint() {
-    repaintWorkspace = true;
-    notifyListeners();
-  }
-
   void deleteSelectedMetri() {
     proyectLayers.removeAt(selectedMetriIndex);
     selectedMetriIndex--;
@@ -88,64 +69,30 @@ class AppData extends Model {
     repaintOnce();
   }
 
-  void stopRepaint() {
-    Future.delayed(const Duration(milliseconds: 500), () {
-      repaintWorkspace = false;
-      notifyListeners();
-    });
-  }
-
   void changeGlowSize(double newSize) {
-    glowSize = newSize;
-
+    selectedLayer.glowSize = newSize;
     repaintOnce();
   }
 
   void ajustarDivisionesRadiales(int newDivisiones) {
-    radialDivisions = newDivisiones;
-    actualizarCuadricula();
-    proyectLayers.forEach((element) {
-      element.grid = grid;
-      element.snapPoints();
-    });
+    selectedLayer.radialDivisions = newDivisiones;
+
+    selectedLayer.snapPoints();
 
     repaintOnce();
   }
 
-  void ajustarEscalaCuadricula(double deltaScale) {
-    gridScale += deltaScale;
-    if (gridScale < 30) {
-      gridScale = 30;
-    }
-    actualizarCuadricula();
-    proyectLayers.forEach((element) {
-      element.grid = grid;
-      element.snapPoints();
-    });
-
+  void adjustGridScale(double deltaScale) {
+    selectedLayer.adjustGridScale(deltaScale);
     repaintOnce();
   }
 
   void ajustarExtensionCuadricula(int extent) {
-    gridExtent = extent;
-    actualizarCuadricula();
-    proyectLayers.forEach((element) {
-      element.grid = grid;
-      element.snapPoints();
-    });
+    selectedLayer.gridExtent = extent;
+
+    selectedLayer.snapPoints();
 
     repaintOnce();
-  }
-
-  void actualizarCuadricula() {
-    switch (tipoCuadricula) {
-      case GridType.circular:
-        grid = createCircularGrid(radialDivisions, gridExtent, gridScale);
-        break;
-      case GridType.squared:
-        grid = createSquaredGrid(gridScale, gridExtent);
-        break;
-    }
   }
 
   void cambiarGrosor(double newGrosor) {
@@ -153,17 +100,9 @@ class AppData extends Model {
     repaintOnce();
   }
 
-  void cambiarTipoDeCuadricula() {
-    if (tipoCuadricula == GridType.circular) {
-      tipoCuadricula = GridType.squared;
-    } else {
-      tipoCuadricula = GridType.circular;
-    }
-    actualizarCuadricula();
-    proyectLayers.forEach((element) {
-      element.grid = grid;
-      element.snapPoints();
-    });
+  void setGridType(GridType _newGrid) {
+    selectedLayer.setGridType(_newGrid);
+    selectedLayer.snapPoints();
     repaintOnce();
   }
 
@@ -172,29 +111,12 @@ class AppData extends Model {
     repaintOnce();
   }
 
-  void changeBlendMode(BlendMode newBlendMode) {
-    blendMode = newBlendMode;
-    blendModeIndex = BlendMode.values.indexOf(blendMode);
-    repaintOnce();
-  }
-
-  void changeBlenModeIndex(int index) {
-    blendModeIndex = index;
-
-    if (BlendMode.values[index] != BlendMode.dst &&
-        BlendMode.values[index] != BlendMode.clear) {
-      blendMode = BlendMode.values[index];
-    }
-
-    repaintOnce();
-  }
-
   String getBlendModeName() {
     return blendMode.toString().replaceAll("BlendMode.", "").toUpperCase();
   }
 
   void toggleSymmetry() {
-    symmetry = !symmetry;
+    selectedLayer.symetryc = !selectedLayer.symetryc;
     repaintOnce();
   }
 
@@ -203,32 +125,14 @@ class AppData extends Model {
     repaintOnce();
   }
 
-  void toggleTranslateMode() {
-    onTranslateMode = !onTranslateMode;
-    print("Translate Mode");
-    notifyListeners();
-  }
 
-  void resetCenter(Size windowSize) {
-    onTranslateMode = false;
-    canvasCenter = Offset(windowSize.width / 2, windowSize.height / 2);
-    notifyListeners();
-  }
 
   void initWorkSpace() {
     if (proyectLayers.length == 0) createLayer();
   }
 
-  void moveCenterByDelta(Offset delta) {
-    canvasCenter += delta;
-    repaintOnce();
-  }
 
-  void setCenter(Offset position) {
-    canvasCenter = position;
-    repaintOnce();
-  }
-
+ 
   void toggleBackgroundColorSelecion() {
     onBackgroundColorSelection = !onBackgroundColorSelection;
 
@@ -244,11 +148,6 @@ class AppData extends Model {
     repaintOnce();
   }
 
-  void toggleDragPanels() {
-    onDragPanel = !onDragPanel;
-    notifyListeners();
-  }
-
   void changeActiveShape(int index) {
     selectedMetriIndex = index;
     selectedLayer = proyectLayers[selectedMetriIndex];
@@ -256,25 +155,19 @@ class AppData extends Model {
   }
 
   void repaintOnce() {
-    repaintWorkspace = true;
     notifyListeners();
-    stopRepaint();
   }
 
   void createLayer() {
-    actualizarCuadricula();
     selectedLayer = LayerModel(
       points: [
         Offset(300, 0),
-        Offset(0, 0),
-        Offset(0, 300),
+        Offset(300, 0),
+        Offset(300, 0),
       ],
-      color: Colors.grey,
-      selected: true,
-      grid: grid,
-      gridType: tipoCuadricula,
-      gridSnapping: cuadriculaActiva,
+      grid: createSquaredGrid(50, 10),
     );
+    proyectLayers.add(selectedLayer);
     selectedLayer.snapPoints();
     for (int i = 0; i < proyectLayers.length; i++) {
       proyectLayers[i].selected = false;
@@ -312,14 +205,6 @@ class AppData extends Model {
   void dragMetriPoint(Offset delta, int index) {
     selectedLayer.points[index] += delta;
     notifyListeners();
-  }
-
-  void mostrarCuadricula() {
-    cuadriculaActiva = !cuadriculaActiva;
-    proyectLayers.forEach((element) {
-      element.gridSnapping = cuadriculaActiva;
-    });
-    repaintOnce();
   }
 
   void changeMetriVisibility(int index) {

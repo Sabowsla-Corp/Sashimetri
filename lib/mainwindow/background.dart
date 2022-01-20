@@ -42,7 +42,7 @@ class _BackgroundState extends State<Background> {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.purple[700], Colors.blue[700]],
+              colors: [Colors.purple[700]!, Colors.blue[700]!],
             ),
           ),
           child: Align(
@@ -137,7 +137,7 @@ class Sun extends StatelessWidget {
 class SunErase extends StatelessWidget {
   final baseDecoration = BoxDecoration(
     gradient: LinearGradient(
-      colors: [Colors.purple[700], Colors.blue[700]],
+      colors: [Colors.purple.shade700, Colors.blue.shade700],
     ),
   );
   @override

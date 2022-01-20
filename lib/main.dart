@@ -2,7 +2,7 @@ import 'package:sashimetri/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'models/app_data.dart';
-import 'workspace/projectpage.dart';
+import 'workspace/proyect_page.dart';
 
 void main() async {
   runApp(MyApp(model: setupLocator()));
@@ -10,7 +10,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final AppData model;
-  MyApp({this.model});
+  MyApp({required this.model});
   @override
   Widget build(BuildContext context) {
     return ScopedModel<AppData>(

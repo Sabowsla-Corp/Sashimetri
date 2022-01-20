@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/app_data.dart';
+import 'package:sashimetri/models/layer_model.dart';
 
 class ColorPalette extends StatelessWidget {
+  final LayerModel layerModel;
+
+  ColorPalette({Key? key, required this.layerModel});
   @override
   Widget build(BuildContext context) {
-    final model = AppData.of(context, rebuild: false);
+
 
     return Container(
       color: Colors.grey.shade900,
@@ -23,14 +26,14 @@ class ColorPalette extends StatelessWidget {
               borderRadius: BorderRadius.circular(2),
               color: Colors.transparent,
               child: InkWell(
-                child: model.currentColor == Colors.primaries[index]
+                child: layerModel.currentColor == Colors.primaries[index]
                     ? Icon(
                         Icons.check,
                         color: Colors.white,
                       )
                     : Text(""),
                 onTap: () => {
-                  model.setColorFromPalete(Colors.primaries[index]),
+                  
                 },
               ),
             ),

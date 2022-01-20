@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:sashimetri/models/app_data.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class MovablePanel extends StatefulWidget {
-  MovablePanel({Key key}) : super(key: key);
+  MovablePanel({Key? key}) : super(key: key);
 
   @override
   _MovablePanelState createState() => _MovablePanelState();
@@ -16,7 +14,7 @@ class _MovablePanelState extends State<MovablePanel> {
   @override
   Widget build(BuildContext context) {
     final model = AppData.of(context);
-    bool onDragView = ScopedModel.of<AppData>(context).onDrawView;
+    bool onDragView = true;
     return Stack(
       children: [
         if (onDragView) BottomDropPreview(),
@@ -24,7 +22,7 @@ class _MovablePanelState extends State<MovablePanel> {
         if (onDragView) LeftDropPreview(),
         if (onDragView) RightDropPreview(),
         ToolsPanel(),
-        if (model.onDragPanel) DragablePanel(),
+        if (true) DragablePanel(),
       ],
     );
   }
@@ -33,7 +31,7 @@ class _MovablePanelState extends State<MovablePanel> {
 enum DragPoints { top, bottom, left, right }
 
 class DragablePanel extends StatefulWidget {
-  DragablePanel({Key key}) : super(key: key);
+  DragablePanel({Key? key}) : super(key: key);
 
   @override
   _DragablePanelState createState() => _DragablePanelState();
@@ -55,21 +53,12 @@ class _DragablePanelState extends State<DragablePanel> {
       childWhenDragging: Container(
         child: DragItem(),
       ),
-      onDragStarted: () {
-        model.starDragView();
-      },
-      onDragCompleted: () {
-        model.endDragView();
-      },
-      onDragEnd: (drag) {
-        model.endDragView();
-      },
     );
   }
 }
 
 class ToolsPanel extends StatelessWidget {
-  const ToolsPanel({Key key}) : super(key: key);
+  const ToolsPanel({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +99,7 @@ class DragItem extends StatelessWidget {
 }
 
 class RightDropPreview extends StatelessWidget {
-  const RightDropPreview({Key key}) : super(key: key);
+  const RightDropPreview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +123,7 @@ class RightDropPreview extends StatelessWidget {
 }
 
 class LeftDropPreview extends StatelessWidget {
-  const LeftDropPreview({Key key}) : super(key: key);
+  const LeftDropPreview({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -206,10 +195,10 @@ class DropPreview extends StatefulWidget {
   final DragPoints dragablePosition;
   final clipper;
   DropPreview(
-      {Key key,
+      {Key? key,
       this.clipper,
-      this.boxConstraints,
-      @required this.dragablePosition})
+      required this.boxConstraints,
+      required this.dragablePosition})
       : super(key: key);
 
   @override
@@ -259,7 +248,7 @@ class BottomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    List<Offset> points =  [];
+    List<Offset> points = [];
     points.add(Offset(0, size.height));
     points.add(Offset(size.height, 0));
     points.add(Offset(size.width - size.height, 0));
@@ -276,7 +265,7 @@ class TopClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    List<Offset> points =  [];
+    List<Offset> points = [];
     points.add(Offset(0, 0));
     points.add(Offset(size.height, size.height));
     points.add(Offset(size.width - size.height, size.height));
@@ -293,7 +282,7 @@ class LeftCliper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    List<Offset> points =  [];
+    List<Offset> points = [];
     points.add(Offset(0, 0));
     points.add(Offset(size.height, size.height));
     points.add(Offset(size.width, size.height - size.width));
@@ -310,7 +299,7 @@ class RightClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    List<Offset> points =  [];
+    List<Offset> points = [];
     points.add(Offset(size.width, 0));
     points.add(Offset(0, size.width));
     points.add(Offset(0, size.height - size.width));
