@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:flutter/material.dart';
 import 'package:sashimetri/workspace/sashimetrifunctions.dart';
-class Metri {
+
+class LayerModel {
   List<Offset> points;
   Color color;
   double thickness;
   bool visible;
-
+ String name;
   bool symetryc;
   bool gridSnapping;
   GridType gridType;
@@ -14,9 +15,10 @@ class Metri {
 
   int subdivisions;
 
-  Metri({
+  LayerModel({
     this.points,
     this.color,
+    this.name : "Capa 0",
     this.selected: false,
     this.thickness: 1,
     this.visible: true,
@@ -78,7 +80,7 @@ class Metri {
   }
 
   List<List<Offset>> symetrycMetriPoints(points) {
-    List<List<Offset>> temp = List<List<Offset>>();
+    List<List<Offset>> temp =[];
     temp.add(invertX(points));
     temp.add(invertY(points));
     temp.add(invertXY(points));
@@ -86,7 +88,7 @@ class Metri {
   }
 
   List<Offset> invertX(List<Offset> points) {
-    List<Offset> newPoints = List();
+    List<Offset> newPoints = [];
     for (int i = 0; i < points.length; i++) {
       newPoints.add(new Offset(-points[i].dx, points[i].dy));
     }
@@ -94,7 +96,7 @@ class Metri {
   }
 
   List<Offset> invertY(List<Offset> points) {
-    List<Offset> newPoints = List();
+    List<Offset> newPoints = [];
     for (int i = 0; i < points.length; i++) {
       newPoints.add(new Offset(points[i].dx, -points[i].dy));
     }
@@ -102,7 +104,7 @@ class Metri {
   }
 
   List<Offset> invertXY(List<Offset> points) {
-    List<Offset> newPoints = List();
+    List<Offset> newPoints = [];
     for (int i = 0; i < points.length; i++) {
       newPoints.add(new Offset(-points[i].dx, -points[i].dy));
     }

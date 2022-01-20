@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/sashimetrimodel.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:sashimetri/models/app_data.dart';
 
 import 'interactioninput/workspace.dart';
 

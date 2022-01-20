@@ -192,7 +192,7 @@ class _OldTvFxState extends State<_OldTvFx> {
 }
 
 _fillColors() {
-  final List<Color> colors = List();
+  final List<Color> colors = [];
   for (int i = 0; i < 150; i++) {
     var opacity = Random.secure().nextDouble() * 0.05 + 0.01;
     colors.add(Colors.black.withOpacity(opacity));

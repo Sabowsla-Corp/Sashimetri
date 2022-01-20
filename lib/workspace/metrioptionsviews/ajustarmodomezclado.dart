@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:flutter/material.dart';import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/workspace/viewmodels/collectionobjectsliderenum.dart';
 
 class AjustarModoMezclado extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/models/app_data.dart';
 
 class ColorPalette extends StatelessWidget {
   @override

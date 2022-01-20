@@ -6,7 +6,7 @@ Size phoneSize(context) {
 }
 
 fillStartPoints(int iterations, List<Offset> obj) {
-  List<Offset> points = List<Offset>(iterations + 1);
+  List<Offset> points = []..length = (iterations + 1);
   double xStep = (obj[1].dx - obj[0].dx) / (iterations);
   double yStep = (obj[1].dy - obj[0].dy) / (iterations);
 
@@ -18,7 +18,7 @@ fillStartPoints(int iterations, List<Offset> obj) {
 }
 
 fillEndPoints(int iterations, List<Offset> obj) {
-  List<Offset> points = List<Offset>(iterations + 1);
+  List<Offset> points = []..length = (iterations + 1);
   double xStep = (obj[2].dx - obj[1].dx) / (iterations);
   double yStep = (obj[2].dy - obj[1].dy) / (iterations);
 
@@ -31,7 +31,7 @@ fillEndPoints(int iterations, List<Offset> obj) {
 
 int nearestPointToTouch(Offset newP, List<Offset> oldP) {
   int nearest = 0;
-  List<double> magnitudes = List();
+  List<double> magnitudes = [];
 
   for (int i = 0; i < oldP.length; i++) {
     double currentMag = (newP - oldP[i]).distance;
@@ -52,7 +52,7 @@ int nearestPointToTouch(Offset newP, List<Offset> oldP) {
 }
 
 detectTwoNearest(Offset newP, List<Offset> oldP) {
-  List<NearPoint> pointsByMag = List();
+  List<NearPoint> pointsByMag = [];
 
   for (int i = 0; i < oldP.length; i++) {
     double currentMag = (newP - oldP[i]).distance;
@@ -107,7 +107,7 @@ getColorShade(int index, int shade) {
 
 List<Offset> createCircularGrid(
     int radialSubdvisions, int layers, double distance) {
-  List<Offset> grid = List<Offset>();
+  List<Offset> grid = [];
   for (int r = 0; r < layers; r++) {
     for (int thetaIndex = 0; thetaIndex < radialSubdvisions; thetaIndex++) {
       double anglePercent = (thetaIndex / radialSubdvisions);
@@ -121,7 +121,7 @@ List<Offset> createCircularGrid(
 }
 
 List<Offset> createSquaredGrid(double scale, int repeat) {
-  List<Offset> grid = List<Offset>();
+  List<Offset> grid =[];
   for (int y = -repeat; y <= repeat; y++) {
     for (int x = -repeat; x <= repeat; x++) {
       grid.add(Offset((x * scale), (y * scale)));

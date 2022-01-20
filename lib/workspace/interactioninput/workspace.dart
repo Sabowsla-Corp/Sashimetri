@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/workspace/interactioninput/touchcontrol.dart';
 
 import '../layersmanager.dart';
@@ -18,7 +18,7 @@ class WorkSpace extends StatelessWidget {
     return Stack(
       children: [
         TouchControl(),
-        LayersManager(),
+        LayersDragger(),
       ],
     );
   }

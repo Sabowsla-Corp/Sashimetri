@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:flutter/material.dart';import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/workspace/viewmodels/collectionobjectslider.dart';
 
 class AjustarSubdivisiones extends StatelessWidget {
@@ -15,10 +15,10 @@ class AjustarSubdivisiones extends StatelessWidget {
       onValueChange: (newValue) {
         model.ajustarSubdivisionesMetri(newValue.round());
       },
-      value: model.selectedMetri.subdivisions.toDouble(),
+      value: model.selectedLayer.subdivisions.toDouble(),
       max: 30,
       min: 5,
-      label: model.selectedMetri.subdivisions.toString(),
+      label: model.selectedLayer.subdivisions.toString(),
     );
   }
 }

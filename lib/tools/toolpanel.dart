@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:sashimetri/models/sashimetrimodel.dart';
+
+import 'package:sashimetri/models/app_data.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class MovablePanel extends StatefulWidget {
@@ -259,7 +259,7 @@ class BottomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    List<Offset> points = new List();
+    List<Offset> points =  [];
     points.add(Offset(0, size.height));
     points.add(Offset(size.height, 0));
     points.add(Offset(size.width - size.height, 0));
@@ -276,7 +276,7 @@ class TopClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    List<Offset> points = new List();
+    List<Offset> points =  [];
     points.add(Offset(0, 0));
     points.add(Offset(size.height, size.height));
     points.add(Offset(size.width - size.height, size.height));
@@ -293,7 +293,7 @@ class LeftCliper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    List<Offset> points = new List();
+    List<Offset> points =  [];
     points.add(Offset(0, 0));
     points.add(Offset(size.height, size.height));
     points.add(Offset(size.width, size.height - size.width));
@@ -310,7 +310,7 @@ class RightClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = new Path();
-    List<Offset> points = new List();
+    List<Offset> points =  [];
     points.add(Offset(size.width, 0));
     points.add(Offset(0, size.width));
     points.add(Offset(0, size.height - size.width));

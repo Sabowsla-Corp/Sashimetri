@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:flutter/material.dart';import 'package:sashimetri/models/app_data.dart';
 import '../viewmodels/collectionobjectslider.dart';
 
 class AjustarGrosor extends StatelessWidget {
@@ -13,13 +13,13 @@ class AjustarGrosor extends StatelessWidget {
       height: 30,
       margin: EdgeInsets.symmetric(horizontal: 4),
       onValueChange: model.cambiarGrosor,
-      value: model.selectedMetri.thickness,
+      value: model.selectedLayer.thickness,
       max: 5,
       min: 0.5,
       onResetValue: () {
         model.cambiarGrosor(1);
       },
-      label: model.selectedMetri.thickness.toStringAsFixed(2),
+      label: model.selectedLayer.thickness.toStringAsFixed(2),
     );
   }
 }

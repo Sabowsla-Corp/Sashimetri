@@ -1,6 +1,6 @@
-import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/models/app_data.dart';
 
 class GlowPainter extends CustomPainter {
   final AppData model;
@@ -12,8 +12,8 @@ class GlowPainter extends CustomPainter {
     Offset center = model.canvasCenter;
     final paint = new Paint();
 
-    for (int i = 0; i < model.projectMetris.length; i++) {
-      model.projectMetris[i].draw(paint, canvas, center);
+    for (int i = 0; i < model.proyectLayers.length; i++) {
+      model.proyectLayers[i].draw(paint, canvas, center);
     }
   }
 

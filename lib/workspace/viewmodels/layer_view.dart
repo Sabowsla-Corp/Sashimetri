@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/models/app_data.dart';
+import 'package:sashimetri/models/layer_model.dart';
 import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
+import 'package:sashimetri/workspace/viewmodels/toggle_visibility.dart';
 
 import '../../locator.dart';
-import 'layer_model.dart';
 
 class LayerView extends StatefulWidget {
   final LayerModel layerModel;
@@ -22,13 +23,11 @@ class _LayerViewState extends State<LayerView> {
   void onTap() {
     locator<AppData>().selectLayer(widget.layerModel);
     setState(() {
-      selected = true;
+      selected = !selected;
     });
   }
 
-  void onToggleVisibility() {
-
-  }
+  void onToggleVisibility() {}
 
   @override
   Widget build(BuildContext context) {
@@ -39,51 +38,40 @@ class _LayerViewState extends State<LayerView> {
         borderRadius: BorderRadius.circular(5),
         color: selected ? Colors.grey : Colors.grey.shade900,
       ),
-      height: 45,
+ 
       margin: EdgeInsets.all(2),
-      child: InkWell(
-        onTap: onTap,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Icon(
-              Icons.layers,
-              color: Colors.white,
-              size: 18,
-            ),
-            Expanded(
-              child: Text(
-                layer.name,
-                style: collection,
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(3),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(5),
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Icon(
-                        getIcon(layer.visible),
-                        size: 16,
-                        color: layer.visible ? Colors.white : Colors.grey,
-                      ),
-                    ),
-                    onTap: onToggleVisibility,
+      child: Column(
+        children: [
+          InkWell(
+            onTap: onTap,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.layers,
+                  color: Colors.white,
+                  size: 18,
+                ),
+                Expanded(
+                  child: Text(
+                    layer.name,
+                    style: collection,
                   ),
                 ),
-              ),
-            )
-          ],
-        ),
+                ToggleVisibilty(
+                  onToggle: onToggleVisibility,
+                  visible: layer.visible,
+                ),
+              ],
+            ),
+          ),
+          AnimatedContainer(
+            height: selected ? 50: 0,
+            duration: Duration(milliseconds: 500),
+            child: Text("Settings"),
+          ),
+        ],
       ),
     );
   }
-}
-
-IconData getIcon(bool selected) {
-  return selected ? Icons.visibility : Icons.visibility_off;
 }

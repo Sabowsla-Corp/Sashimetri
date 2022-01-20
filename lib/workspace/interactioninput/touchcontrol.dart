@@ -1,12 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/workspace/painters/glowpainter.dart';
 import 'package:sashimetri/workspace/painters/metripainter.dart';
 
 import '../sashimetrifunctions.dart';
-
 
 class TouchControl extends StatefulWidget {
   final ValueChanged<Offset> onChanged;
@@ -28,7 +27,7 @@ class TouchControlState extends State<TouchControl> {
 
     void _handlePanStart(DragStartDetails details) {
       model.startRepaint();
-      List<Offset> startPoints = model.selectedMetri.points;
+      List<Offset> startPoints = model.selectedLayer.points;
       setState(
         () {
           nearestMetriIndex = nearestPointToTouch(
@@ -52,6 +51,7 @@ class TouchControlState extends State<TouchControl> {
     }
 
     void onPointerMove(PointerEvent details) {
+
       if (details.buttons == 4) model.moveCenterByDelta(details.delta);
     }
 
@@ -61,43 +61,37 @@ class TouchControlState extends State<TouchControl> {
       model.ajustarEscalaCuadricula(scrollEvent.scrollDelta.dy / 100);
     }
 
-    return Expanded(
-      child: Listener(
-        onPointerMove: onPointerMove,
-        onPointerSignal: onPointerSignal,
-        child: PageView(
+    return Listener(
+      onPointerMove: onPointerMove,
+      onPointerSignal: onPointerSignal,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onPanStart: _handlePanStart,
+        onPanEnd: _handlePanEnd,
+        onPanUpdate: _handlePanUpdate,
+        child: Stack(
           children: [
-            GestureDetector(
-              behavior: HitTestBehavior.translucent,
-              onPanStart: _handlePanStart,
-              onPanEnd: _handlePanEnd,
-              onPanUpdate: _handlePanUpdate,
-              child: Stack(
-                children: [
-                  CustomPaint(
-                    size: Size(1080, 1920),
-                    painter: GlowPainter(
-                      model: model,
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: model.glowSize,
-                        sigmaY: model.glowSize,
-                      ),
-                      child: Container(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                  ),
-                  CustomPaint(
-                    size: Size(1080, 1920),
-                    painter: TouchControlPainter(
-                      model: model,
-                    ),
-                  ),
-                ],
+            CustomPaint(
+              size: Size(1080, 1920),
+              painter: GlowPainter(
+                model: model,
+              ),
+            ),
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: model.glowSize,
+                  sigmaY: model.glowSize,
+                ),
+                child: Container(
+                  color: Colors.transparent,
+                ),
+              ),
+            ),
+            CustomPaint(
+              size: Size(1080, 1920),
+              painter: TouchControlPainter(
+                model: model,
               ),
             ),
           ],
