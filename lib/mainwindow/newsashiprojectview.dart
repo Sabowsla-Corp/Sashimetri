@@ -68,7 +68,7 @@ class _NewProjectViewState extends State<NewProjectView> {
   @override
   Widget build(BuildContext context) {
     final model =
-        ScopedModel.of<SashimetriModel>(context, rebuildOnChange: false);
+        ScopedModel.of<AppData>(context, rebuildOnChange: false);
     return Expanded(
       child: AnimatedContainer(
         duration: d500,

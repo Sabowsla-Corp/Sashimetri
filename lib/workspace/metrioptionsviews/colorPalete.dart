@@ -4,7 +4,7 @@ import 'package:sashimetri/models/sashimetrimodel.dart';
 class ColorPalette extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context, rebuild: false);
+    final model = AppData.of(context, rebuild: false);
 
     return Container(
       color: Colors.grey.shade900,

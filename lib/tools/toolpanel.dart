@@ -15,8 +15,8 @@ class _MovablePanelState extends State<MovablePanel> {
   bool onDragView = false;
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context);
-    bool onDragView = ScopedModel.of<SashimetriModel>(context).onDrawView;
+    final model = AppData.of(context);
+    bool onDragView = ScopedModel.of<AppData>(context).onDrawView;
     return Stack(
       children: [
         if (onDragView) BottomDropPreview(),
@@ -44,7 +44,7 @@ class _DragablePanelState extends State<DragablePanel> {
 
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context);
+    final model = AppData.of(context);
     return Draggable(
       child: Container(
         color: Colors.transparent,
@@ -222,7 +222,7 @@ class _DropPreviewState extends State<DropPreview> {
   bool onHover = false;
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context);
+    final model = AppData.of(context);
     return ConstrainedBox(
       constraints: widget.boxConstraints,
       child: ClipPath(

@@ -10,20 +10,15 @@ class WorkSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context, rebuild: false);
+    final model = AppData.of(context, rebuild: false);
     model.resetCenter(MediaQuery.of(context).size);
 
     model.initWorkSpace();
 
     return Stack(
       children: [
-        Container(color: model.backgroundColor),
-        Row(
-          children: [
-            TouchControl(),
-            LayersManager(),
-          ],
-        ),
+        TouchControl(),
+        LayersManager(),
       ],
     );
   }

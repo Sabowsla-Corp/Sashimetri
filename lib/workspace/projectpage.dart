@@ -14,17 +14,22 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   @override
   Widget build(BuildContext context) {
-    final model =
-        ScopedModel.of<SashimetriModel>(context, rebuildOnChange: false);
+  var model = AppData.of(context);
     return Scaffold(
+      backgroundColor:  model.backgroundColor,
       appBar: AppBar(
-        title: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => model.exitWorkSpace(),
+        title: InkWell(
+          child: Icon(Icons.settings),
+          onTap: openSettings,
         ),
         actions: [],
       ),
       body: WorkSpace(),
     );
   }
+}
+
+void openSettings(){
+  //TODO:
+  //locator<AppData>().openSettings();
 }

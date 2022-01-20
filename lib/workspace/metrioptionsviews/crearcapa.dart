@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/sashimetrimodel.dart';
-import '../viewmodels/collectionobject.dart';
+import '../viewmodels/layer_view.dart';
 
 class CrearCapa extends StatelessWidget {
   const CrearCapa({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context);
-    return CollectionObject(
-      activeIcon: Icons.add,
-      visible: true,
-      bgColor: Colors.grey.shade900,
-      title: "Añadir Capa",
-      height: 30,
-      leadingIcon: Container(),
-      onToggle: model.createNewMetri,
-      onSelect: model.createNewMetri,
+    final model = AppData.of(context);
+    return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: model.createNewMetri,
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child: Icon(
+              Icons.add,
+              size: 25,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

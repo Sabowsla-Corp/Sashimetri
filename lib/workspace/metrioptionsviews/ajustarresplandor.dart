@@ -6,7 +6,7 @@ class AjustarResplandor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context);
+    final model = AppData.of(context);
     return CollectionObjectSlider(
       title: "Ajustar Resplandor",
       color: Colors.grey.shade900,

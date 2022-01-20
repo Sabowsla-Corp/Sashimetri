@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:sashimetri/workspace/sashimetrifunctions.dart';
+import 'package:sashimetri/workspace/viewmodels/layer_model.dart';
 import 'metrimodel.dart';
 import '../tools/toolpanel.dart';
 import '../mainwindow/newsashiprojectview.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class SashimetriModel extends Model {
+class AppData extends Model {
   Metri selectedMetri;
   int selectedMetriIndex = 0;
-
+  LayerModel selectedLayer;
   bool onWorkSpace = true;
 
-  static SashimetriModel of(BuildContext context, {bool rebuild: true}) =>
-      ScopedModel.of<SashimetriModel>(context, rebuildOnChange: rebuild);
+  static AppData of(BuildContext context, {bool rebuild: true}) =>
+      ScopedModel.of<AppData>(context, rebuildOnChange: rebuild);
 
   void createNewProject(ProjectType type) {
     onWorkSpace = true;
+    notifyListeners();
+  }
+
+  void selectLayer(LayerModel _layerModel) {
+    selectedLayer = _layerModel;
     notifyListeners();
   }
 
@@ -268,6 +275,7 @@ class SashimetriModel extends Model {
   }
 
   List<Metri> projectMetris = List<Metri>();
+  List<LayerModel> proyectLayers = [];
 
   void createNewMetri() {
     actualizarCuadricula();

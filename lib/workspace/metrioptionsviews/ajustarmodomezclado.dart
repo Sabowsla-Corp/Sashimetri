@@ -6,7 +6,7 @@ class AjustarModoMezclado extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context);
+    final model = AppData.of(context);
     return CollectionObjectSliderEnum(
       onResetValue: () {
         model.changeBlendMode(BlendMode.srcOver);

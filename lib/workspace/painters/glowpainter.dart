@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sashimetri/models/sashimetrimodel.dart';
 
 class GlowPainter extends CustomPainter {
-  final SashimetriModel model;
+  final AppData model;
 
   GlowPainter({this.model});
 

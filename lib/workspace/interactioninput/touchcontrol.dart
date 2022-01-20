@@ -24,7 +24,7 @@ class TouchControlState extends State<TouchControl> {
 
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context, rebuild: true);
+    final model = AppData.of(context, rebuild: true);
 
     void _handlePanStart(DragStartDetails details) {
       model.startRepaint();

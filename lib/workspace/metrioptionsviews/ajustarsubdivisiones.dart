@@ -6,7 +6,7 @@ class AjustarSubdivisiones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = SashimetriModel.of(context);
+    final model = AppData.of(context);
     return CollectionObjectSlider(
       title: "Ajustar Subdivisiones",
       onResetValue: () {
