@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
-import 'package:sashimetriweb/workspace/viewmodels/collectionobjectslider.dart';
+import 'package:flutter/material.dart';import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/workspace/viewmodels/collectionobjectslider.dart';
 
 class AjustarSubdivisiones extends StatelessWidget {
   const AjustarSubdivisiones({Key key}) : super(key: key);

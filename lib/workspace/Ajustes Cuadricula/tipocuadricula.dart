@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/metrimodel.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
-import 'package:sashimetriweb/workspace/viewmodels/collectionobject.dart';
+import 'package:sashimetri/models/metrimodel.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/workspace/viewmodels/collectionobject.dart';
 
 class TipoDeCuadricula extends StatelessWidget {
   const TipoDeCuadricula({Key key}) : super(key: key);

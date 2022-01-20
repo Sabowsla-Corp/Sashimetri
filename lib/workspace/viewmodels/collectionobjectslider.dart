@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/styles.dart';
 
 class CollectionObjectSlider extends StatefulWidget {
   final height;
@@ -32,6 +31,8 @@ class CollectionObjectSlider extends StatefulWidget {
 
 class _CollectionObjectSliderState extends State<CollectionObjectSlider> {
   bool sliderVisible = false;
+
+  get collection => null;
 
   void toggleSliderView() {
     setState(() {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
 
 class TouchControlPainter extends CustomPainter {
   final SashimetriModel model;

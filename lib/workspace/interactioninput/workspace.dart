@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
-import 'package:sashimetriweb/workspace/layersmanager.dart';
-import 'package:sashimetriweb/workspace/interactioninput/touchcontrol.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/workspace/interactioninput/touchcontrol.dart';
+
+import '../layersmanager.dart';
 
 class WorkSpace extends StatelessWidget {
   const WorkSpace({Key key}) : super(key: key);

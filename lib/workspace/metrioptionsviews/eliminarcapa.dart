@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
 import '../viewmodels/collectionobject.dart';
 
 class EliminarCapa extends StatelessWidget {

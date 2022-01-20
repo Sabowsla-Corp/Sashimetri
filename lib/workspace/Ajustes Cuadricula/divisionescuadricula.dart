@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
-import 'package:sashimetriweb/workspace/viewmodels/collectionobjectslider.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/workspace/viewmodels/collectionobjectslider.dart';
 
 class DivisionesCuadriculaRadial extends StatelessWidget {
   const DivisionesCuadriculaRadial({Key key}) : super(key: key);

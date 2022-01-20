@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class MovablePanel extends StatefulWidget {

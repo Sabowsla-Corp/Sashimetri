@@ -1,12 +1,12 @@
 import 'dart:ui';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/workspace/painters/glowpainter.dart';
+import 'package:sashimetri/workspace/painters/metripainter.dart';
 
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
-import 'package:sashimetriweb/workspace/painters/glowpainter.dart';
-import 'package:sashimetriweb/workspace/painters/metripainter.dart';
-import 'package:sashimetriweb/workspace/sashimetrifunctions.dart';
+import '../sashimetrifunctions.dart';
+
 
 class TouchControl extends StatefulWidget {
   final ValueChanged<Offset> onChanged;

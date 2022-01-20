@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'models/sashimetrimodel.dart';
-import 'package:sashimetriweb/mainwindow/background.dart';
 import 'workspace/projectpage.dart';
 
 //flutter pub pub run flutter_launcher_icons:main
@@ -16,7 +15,6 @@ class MyApp extends StatelessWidget {
   MyApp({this.model});
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
     return ScopedModel<SashimetriModel>(
       model: model,
       child: MaterialApp(
@@ -47,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ? ProjectPage()
           : Stack(
               children: <Widget>[
-                Background(delay: 100),
+               // Background(delay: 100),
                 Column(
                   children: <Widget>[
                     Container(

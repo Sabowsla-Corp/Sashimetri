@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
-import 'package:sashimetriweb/workspace/interactioninput/workspace.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+import 'interactioninput/workspace.dart';
 
 class ProjectPage extends StatefulWidget {
   ProjectPage({Key key}) : super(key: key);

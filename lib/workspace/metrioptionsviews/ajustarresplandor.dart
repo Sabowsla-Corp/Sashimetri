@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
+import 'package:flutter/material.dart';import 'package:sashimetri/models/sashimetrimodel.dart';
 import '../viewmodels/collectionobjectslider.dart';
 
 class AjustarResplandor extends StatelessWidget {

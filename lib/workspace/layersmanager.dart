@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/models/metrimodel.dart';
-import 'package:sashimetriweb/models/sashimetrimodel.dart';
-import 'package:sashimetriweb/workspace/Ajustes%20Cuadricula/ajustartama%C3%B1ocuadricula.dart';
-import 'package:sashimetriweb/workspace/Ajustes%20Cuadricula/divisionescuadricula.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/ajustargrosor.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/ajustarmodomezclado.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/ajustarsubdivisiones.dart';
-
-import 'package:sashimetriweb/workspace/metrioptionsviews/colorPalete.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/crearcapa.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/ajustarresplandor.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/Ajustes%20Cuadricula/tipocuadricula.dart';
-import 'package:sashimetriweb/workspace/scenecollection.dart';
-
-import 'package:sashimetriweb/workspace/metrioptionsviews/eliminarcapa.dart';
+import 'package:sashimetri/models/metrimodel.dart';
+import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/workspace/metrioptionsviews/ajustargrosor.dart';
+import 'package:sashimetri/workspace/scenecollection.dart';
+import 'Ajustes Cuadricula/ajustartamañocuadricula.dart';
+import 'Ajustes Cuadricula/divisionescuadricula.dart';
 import 'Ajustes Cuadricula/mostrarcuadricula.dart';
+import 'Ajustes Cuadricula/tipocuadricula.dart';
+import 'metrioptionsviews/ajustarmodomezclado.dart';
+import 'metrioptionsviews/ajustarresplandor.dart';
+import 'metrioptionsviews/ajustarsubdivisiones.dart';
+import 'metrioptionsviews/colorPalete.dart';
+import 'metrioptionsviews/crearcapa.dart';
+import 'metrioptionsviews/eliminarcapa.dart';
 
 class LayersManager extends StatefulWidget {
   @override

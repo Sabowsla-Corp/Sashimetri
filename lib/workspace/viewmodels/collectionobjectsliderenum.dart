@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/styles.dart';
 
 class CollectionObjectSliderEnum extends StatefulWidget {
   final height;
@@ -36,6 +35,8 @@ class CollectionObjectSliderEnum extends StatefulWidget {
 class _CollectionObjectSliderEnumState
     extends State<CollectionObjectSliderEnum> {
   bool sliderVisible = false;
+
+  get collection => null;
 
   void toggleSliderView() {
     setState(() {

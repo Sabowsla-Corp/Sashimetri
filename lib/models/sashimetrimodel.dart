@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/workspace/sashimetrifunctions.dart';
+import 'package:sashimetri/workspace/sashimetrifunctions.dart';
 import 'metrimodel.dart';
 import '../tools/toolpanel.dart';
 import '../mainwindow/newsashiprojectview.dart';

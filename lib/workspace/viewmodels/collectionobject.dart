@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetriweb/workspace/metrioptionsviews/styles.dart';
 
 class CollectionObject extends StatelessWidget {
   final height;
@@ -30,6 +29,8 @@ class CollectionObject extends StatelessWidget {
     this.onToggle,
     this.onSelect,
   }) : super(key: key);
+
+  get collection => null;
 
   @override
   Widget build(BuildContext context) {

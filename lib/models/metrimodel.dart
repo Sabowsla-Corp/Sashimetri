@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:sashimetriweb/workspace/sashimetrifunctions.dart';
-
+import 'package:flutter/material.dart';import 'package:sashimetri/models/sashimetrimodel.dart';
+import 'package:sashimetri/workspace/sashimetrifunctions.dart';
 class Metri {
   List<Offset> points;
   Color color;
