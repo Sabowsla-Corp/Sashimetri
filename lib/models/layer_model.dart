@@ -11,7 +11,7 @@ class LayerModel {
   List<Offset>? starts;
   List<Offset>? ends;
 
-  Offset? center = Offset(250, 250);
+  Offset center = Offset(250, 250);
   Color color;
   double thickness;
   bool visible;
@@ -42,7 +42,6 @@ class LayerModel {
     this.gridSnapping: false,
     this.gridType: GridType.squared,
     this.grid,
-     this.center,
   }) {
     mainPoints = [
       Offset(300, 0),
@@ -51,7 +50,7 @@ class LayerModel {
     ];
     starts = fillStartPoints(subdivisions, mainPoints);
     ends = fillEndPoints(subdivisions, mainPoints);
-center =Offset(250, 250);
+    center = Offset(250, 250);
     setGridType(gridType);
   }
 
@@ -112,6 +111,9 @@ center =Offset(250, 250);
     if (symetryc) _drawSymetry(paint, canvas, center);
    if (gridSnapping && selected) drawGrid(paint, canvas, center);
    */
+  }
+  void dragPoint(int index, Offset delta) {
+    mainPoints![index] += delta;
   }
 
   void drawGrid(Paint paint, Canvas canvas, Offset center) {

@@ -24,12 +24,17 @@ class AppData extends Model {
   void selectLayer(LayerModel _layerModel) {
     proyectLayers.forEach((e) => e.deselect());
     _selectedLayer = proyectLayers.indexOf(_layerModel);
-    proyectLayers[_selectedLayer].select()
-;    notifyListeners();
+    proyectLayers[_selectedLayer].select();
+    notifyListeners();
   }
 
   LayerModel selectedLayer() {
     return proyectLayers[_selectedLayer];
+  }
+
+  void moveLayerCenter(Offset delta) {
+    selectedLayer().center += delta;
+    notifyListeners();
   }
 
 /*
@@ -162,8 +167,8 @@ class AppData extends Model {
     repaintOnce();
   }
 
-  void dragMetriPoint(Offset delta, int index) {
-    selectedLayer().mainPoints![index] += delta;
+  void dragLayerPoint(Offset delta, int index) {
+    selectedLayer().dragPoint(index, delta);
     notifyListeners();
   }
 

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/models/layer_model.dart';
@@ -18,48 +19,50 @@ class TouchControlState extends State<TouchControl> {
   @override
   Widget build(BuildContext context) {
     final model = AppData.of(context, rebuild: true);
+
     void _handlePanUpdate(DragUpdateDetails details) {
-      if (false) {
-        // model.moveCenterByDelta(details.delta);
-      } else {
-        model.dragMetriPoint(details.delta, nearestMetriIndex);
-      }
+      
+      setState(() {
+        print("Draging Object");
+        print("Details " + details.delta.toString());
+        model.dragLayerPoint(details.delta, nearestMetriIndex);
+      });
     }
 
     void _handlePanStart(DragStartDetails details) {
-      LayerModel layerModel = model.selectedLayer();
-      List<Offset> startPoints = layerModel.starts!;
-      
+      Offset center = model.selectedLayer().center;
+      var mainPoints = model.selectedLayer().mainPoints!;
       setState(
         () {
           nearestMetriIndex = nearestPointToTouch(
-            details.localPosition - layerModel.center!,
-            startPoints,
+            details.localPosition - center,
+            mainPoints,
           );
         },
       );
-      print(nearestMetriIndex);
     }
 
     void _handlePanEnd(DragEndDetails details) {
       model.snapMetriToItsGrid();
     }
-/*
-    void onPointerMove(PointerEvent details) {
-      if (details.buttons == 4) model.moveCenterByDelta(details.delta);
-    }
 
+    void onPointerMove(PointerEvent details) {
+      setState(() {
+        if (details.buttons == 4) {
+          model.moveLayerCenter(details.delta);
+        }
+      });
+    }
 
     void onPointerSignal(PointerSignalEvent details) {
-      PointerScrollEvent scrollEvent = details;
+      PointerSignalEvent scrollEvent = details;
 
-      model.ajustarEscalaCuadricula(scrollEvent.scrollDelta.dy / 100);
+      // model.ajustarEscalaCuadricula(scrollEvent.scrollDelta.dy / 100);
     }
-*/
 
     return Listener(
-      //  onPointerMove: onPointerMove,
-      // onPointerSignal: onPointerSignal,
+      onPointerMove: onPointerMove,
+      onPointerSignal: onPointerSignal,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onPanStart: _handlePanStart,

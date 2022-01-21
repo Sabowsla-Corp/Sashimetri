@@ -19,8 +19,8 @@ class TouchControlPainter extends CustomPainter {
         paint.strokeWidth = layer.thickness + 1;
         for (int i = 0; i <= layer.subdivisions; i++) {
           canvas.drawLine(
-            layer.starts![i] + layer.center!,
-            layer.ends![i] +  layer.center!,
+            layer.starts![i] + layer.center,
+            layer.ends![i] +  layer.center,
             paint,
           );
         }
