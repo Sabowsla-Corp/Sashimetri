@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
-
+/*
 class MovablePanel extends StatefulWidget {
   MovablePanel({Key? key}) : super(key: key);
 
@@ -311,3 +311,5 @@ class RightClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
+
+*/

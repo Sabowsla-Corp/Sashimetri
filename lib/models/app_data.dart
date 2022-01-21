@@ -1,108 +1,101 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/workspace/sashi_functions.dart';
 import 'layer_model.dart';
-import '../tools/toolpanel.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AppData extends Model {
-  AppData() {
-    setupAppData();
-  }
   static AppData of(BuildContext context, {bool rebuild: true}) {
     return ScopedModel.of<AppData>(context, rebuildOnChange: rebuild);
   }
+
+  int _selectedLayer = 0;
 
   int selectedMetriIndex = 0;
   int lastMetriPointIndex = 0;
   bool canChangeMetriIndex = true;
   bool onBackgroundColorSelection = false;
-  DragPoints currentToolPostion = DragPoints.left;
+  //DragPoints currentToolPostion = DragPoints.left;
   Color backgroundColor = Colors.black;
   BlendMode blendMode = BlendMode.srcOver;
   Offset canvasCenter = Offset(0, 0);
-  List<LayerModel> proyectLayers = [];
-  LayerModel selectedLayer = LayerModel(
-    points: [
-      Offset(300, 0),
-      Offset(300, 0),
-      Offset(300, 0),
-    ],
-    grid: createSquaredGrid(50, 10),
-  );
-
-  void setupAppData() {
-    selectedLayer = LayerModel(
-      points: [
-        Offset(300, 0),
-        Offset(300, 0),
-        Offset(300, 0),
-      ],
-      grid: createSquaredGrid(50, 10),
-    );
-    proyectLayers.add(selectedLayer);
-    notifyListeners();
-  }
+  List<LayerModel> proyectLayers = [
+    LayerModel().randomLayer(),
+  ];
 
   void selectLayer(LayerModel _layerModel) {
-    selectedLayer = _layerModel;
-    notifyListeners();
+    proyectLayers.forEach((e) => e.deselect());
+    _selectedLayer = proyectLayers.indexOf(_layerModel);
+    proyectLayers[_selectedLayer].select()
+;    notifyListeners();
   }
 
+  LayerModel selectedLayer() {
+    return proyectLayers[_selectedLayer];
+  }
+
+/*
   void setNewToolPosition(DragPoints newPosition) {
     currentToolPostion = newPosition;
     updateConstraints(newPosition);
     notifyListeners();
   }
 
-  void updateConstraints(DragPoints newPosition) {}
 
+  void updateConstraints(DragPoints newPosition) {}
+*/
   void snapMetriToItsGrid() {
-    selectedLayer.snapPoints();
+    selectedLayer().snapPoints();
     notifyListeners();
   }
 
-  void deleteSelectedMetri() {
-    proyectLayers.removeAt(selectedMetriIndex);
-    selectedMetriIndex--;
-    selectedLayer = proyectLayers[selectedMetriIndex];
-
+  void deleteLayer(LayerModel _layer) {
+    proyectLayers.remove(_layer);
     repaintOnce();
   }
 
+  void toggleVisibility() {
+    selectedLayer().toggleVisibility();
+    repaintOnce();
+  }
+
+  void selectLayerColor(Color color) {
+    selectedLayer().color = color;
+    notifyListeners();
+  }
+
   void changeGlowSize(double newSize) {
-    selectedLayer.glowSize = newSize;
+    selectedLayer().glowSize = newSize;
     repaintOnce();
   }
 
   void ajustarDivisionesRadiales(int newDivisiones) {
-    selectedLayer.radialDivisions = newDivisiones;
+    selectedLayer().radialDivisions = newDivisiones;
 
-    selectedLayer.snapPoints();
+    selectedLayer().snapPoints();
 
     repaintOnce();
   }
 
   void adjustGridScale(double deltaScale) {
-    selectedLayer.adjustGridScale(deltaScale);
+    selectedLayer().adjustGridScale(deltaScale);
     repaintOnce();
   }
 
   void ajustarExtensionCuadricula(int extent) {
-    selectedLayer.gridExtent = extent;
+    selectedLayer().gridExtent = extent;
 
-    selectedLayer.snapPoints();
+    selectedLayer().snapPoints();
 
     repaintOnce();
   }
 
   void cambiarGrosor(double newGrosor) {
-    selectedLayer.thickness = newGrosor;
+    selectedLayer().thickness = newGrosor;
     repaintOnce();
   }
 
   void setGridType(GridType _newGrid) {
-    selectedLayer.setGridType(_newGrid);
-    selectedLayer.snapPoints();
+    selectedLayer().setGridType(_newGrid);
+    selectedLayer().snapPoints();
     repaintOnce();
   }
 
@@ -116,23 +109,15 @@ class AppData extends Model {
   }
 
   void toggleSymmetry() {
-    selectedLayer.symetryc = !selectedLayer.symetryc;
+    selectedLayer().symetryc = !selectedLayer().symetryc;
     repaintOnce();
   }
 
   void ajustarSubdivisionesMetri(int newSubdvs) {
-    selectedLayer.subdivisions = newSubdvs;
+    selectedLayer().subdivisions = newSubdvs;
     repaintOnce();
   }
 
-
-
-  void initWorkSpace() {
-    if (proyectLayers.length == 0) createLayer();
-  }
-
-
- 
   void toggleBackgroundColorSelecion() {
     onBackgroundColorSelection = !onBackgroundColorSelection;
 
@@ -143,15 +128,9 @@ class AppData extends Model {
     if (onBackgroundColorSelection) {
       backgroundColor = newColor;
     } else {
-      selectedLayer.changeColor(newColor);
+      selectedLayer().changeColor(newColor);
     }
     repaintOnce();
-  }
-
-  void changeActiveShape(int index) {
-    selectedMetriIndex = index;
-    selectedLayer = proyectLayers[selectedMetriIndex];
-    notifyListeners();
   }
 
   void repaintOnce() {
@@ -159,23 +138,12 @@ class AppData extends Model {
   }
 
   void createLayer() {
-    selectedLayer = LayerModel(
-      points: [
-        Offset(300, 0),
-        Offset(300, 0),
-        Offset(300, 0),
-      ],
-      grid: createSquaredGrid(50, 10),
-    );
-    proyectLayers.add(selectedLayer);
-    selectedLayer.snapPoints();
-    for (int i = 0; i < proyectLayers.length; i++) {
-      proyectLayers[i].selected = false;
-    }
-
-    proyectLayers.add(selectedLayer);
-
-    selectedMetriIndex = proyectLayers.length - 1;
+    proyectLayers.forEach((element) {
+      element.deselect();
+    });
+    var newLayer = LayerModel().randomLayer();
+    proyectLayers.add(newLayer);
+    _selectedLayer = proyectLayers.length - 1;
     repaintOnce();
   }
 
@@ -184,26 +152,18 @@ class AppData extends Model {
       proyectLayers.removeAt(index);
     }
     selectedMetriIndex = proyectLayers.length - 1;
-    selectedLayer = proyectLayers[selectedMetriIndex];
-    selectedLayer.selected = true;
-    repaintOnce();
-  }
 
-  void selectMetri(int index) {
-    selectedLayer.selected = false;
-    selectedLayer = proyectLayers[index];
-    selectedLayer.selected = true;
-    selectedMetriIndex = index;
+    selectedLayer().selected = true;
     repaintOnce();
   }
 
   void symetrizeMetri(int index) {
-    selectedLayer.symetryc = !selectedLayer.symetryc;
+    selectedLayer().symetryc = !selectedLayer().symetryc;
     repaintOnce();
   }
 
   void dragMetriPoint(Offset delta, int index) {
-    selectedLayer.points[index] += delta;
+    selectedLayer().mainPoints![index] += delta;
     notifyListeners();
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/models/layer_model.dart';
+import 'package:sashimetri/workspace/metrioptionsviews/color_palette.dart';
 import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
 
 import '../../locator.dart';
@@ -22,24 +23,39 @@ class LayerView extends StatefulWidget {
 class _LayerViewState extends State<LayerView> {
   bool expanded = false;
 
-  void onSelect() {
-    locator<AppData>().selectLayer(widget.layerModel);
-  }
-
-  void onExpand(bool e) {
-    setState(() => expanded = !expanded);
-  }
-
-  void onChangeText() {}
-
-  void onToggleVisibility() {}
-  void deleteLayer() {}
   @override
   Widget build(BuildContext context) {
-    LayerModel selectedLayer = widget.layerModel;
-    LayerModel sLayer = AppData.of(context).selectedLayer;
-    bool visible = selectedLayer.visible;
-    bool selected = selectedLayer == sLayer;
+    AppData appData = AppData.of(context);
+    LayerModel layerModel = widget.layerModel;
+
+    bool visible = layerModel.visible;
+
+    void onSelect() {
+      setState(() {
+        layerModel.select();
+        appData.selectLayer(layerModel);
+      });
+    }
+
+    void onExpand(bool e) {
+      setState(() {
+         expanded = !expanded;
+         if(!e){
+           onSelect();
+         }
+      });
+    }
+
+    void onChangeText() {}
+
+    void onToggleVisibility() {
+      appData.toggleVisibility();
+    }
+
+    void deleteLayer() {
+      appData.deleteLayer(layerModel);
+    }
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 2),
       decoration: darkestBox5,
@@ -49,7 +65,10 @@ class _LayerViewState extends State<LayerView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              LayerIcon(onTap: onSelect, selected: selected),
+              LayerIcon(
+                onTap: onSelect,
+                selected: layerModel.selected,
+              ),
               ExpandIcon(
                 onPressed: onExpand,
                 isExpanded: expanded,
@@ -68,7 +87,7 @@ class _LayerViewState extends State<LayerView> {
                       child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: Text(
-                          selectedLayer.name,
+                          layerModel.name,
                           style: collection,
                         ),
                       ),
@@ -83,7 +102,9 @@ class _LayerViewState extends State<LayerView> {
           AnimatedContainer(
             height: expanded ? 80 : 0,
             duration: Duration(milliseconds: 250),
-            child: Text("Settings"),
+            child: ColorPalette(
+              layerModel: widget.layerModel,
+            ),
           ),
         ],
       ),

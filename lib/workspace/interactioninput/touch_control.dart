@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
+import 'package:sashimetri/models/layer_model.dart';
 import 'package:sashimetri/workspace/painters/touch_control_painter.dart';
 
 import '../sashi_functions.dart';
@@ -16,33 +17,34 @@ class TouchControlState extends State<TouchControl> {
 
   @override
   Widget build(BuildContext context) {
-    /*
     final model = AppData.of(context, rebuild: true);
-
-    void _handlePanStart(DragStartDetails details) {
-      print(model.selectedLayer.points);
-      List<Offset> startPoints = model.selectedLayer.points;
-      print(startPoints);
-      setState(
-        () {
-          nearestMetriIndex = nearestPointToTouch(
-              details.localPosition - model.canvasCenter, startPoints);
-        },
-      );
-    }
-
     void _handlePanUpdate(DragUpdateDetails details) {
-      if (true) {
-        model.moveCenterByDelta(details.delta);
+      if (false) {
+        // model.moveCenterByDelta(details.delta);
       } else {
         model.dragMetriPoint(details.delta, nearestMetriIndex);
       }
     }
 
+    void _handlePanStart(DragStartDetails details) {
+      LayerModel layerModel = model.selectedLayer();
+      List<Offset> startPoints = layerModel.starts!;
+      
+      setState(
+        () {
+          nearestMetriIndex = nearestPointToTouch(
+            details.localPosition - layerModel.center!,
+            startPoints,
+          );
+        },
+      );
+      print(nearestMetriIndex);
+    }
+
     void _handlePanEnd(DragEndDetails details) {
       model.snapMetriToItsGrid();
     }
-
+/*
     void onPointerMove(PointerEvent details) {
       if (details.buttons == 4) model.moveCenterByDelta(details.delta);
     }
@@ -53,17 +55,16 @@ class TouchControlState extends State<TouchControl> {
 
       model.ajustarEscalaCuadricula(scrollEvent.scrollDelta.dy / 100);
     }
-*/    
+*/
 
-final model = AppData.of(context, rebuild: true);
     return Listener(
-      //onPointerMove: onPointerMove,
+      //  onPointerMove: onPointerMove,
       // onPointerSignal: onPointerSignal,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
-      //  onPanStart: _handlePanStart,
-      //  onPanEnd: _handlePanEnd,
-      //  onPanUpdate: _handlePanUpdate,
+        onPanStart: _handlePanStart,
+        onPanEnd: _handlePanEnd,
+        onPanUpdate: _handlePanUpdate,
         child: CustomPaint(
           size: Size(1080, 1920),
           painter: TouchControlPainter(

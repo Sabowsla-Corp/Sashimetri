@@ -5,25 +5,26 @@ Size phoneSize(context) {
   return MediaQuery.of(context).size;
 }
 
-fillStartPoints(int iterations, List<Offset> obj) {
-  List<Offset> points = []..length = (iterations + 1);
-  double xStep = (obj[1].dx - obj[0].dx) / (iterations);
+List<Offset> fillStartPoints(int iterations, List<Offset>? obj) {
+  List<Offset> points = [];
+
+  double xStep = (obj![1].dx - obj[0].dx) / (iterations);
   double yStep = (obj[1].dy - obj[0].dy) / (iterations);
 
   for (int i = 0; i <= iterations; i++) {
-    points[i] = Offset(obj[0].dx + i * xStep, obj[0].dy + i * yStep);
+    points.add(Offset(obj[0].dx + i * xStep, obj[0].dy + i * yStep));
   }
 
   return points;
 }
 
-fillEndPoints(int iterations, List<Offset> obj) {
-  List<Offset> points = []..length = (iterations + 1);
-  double xStep = (obj[2].dx - obj[1].dx) / (iterations);
+List<Offset> fillEndPoints(int iterations, List<Offset>? obj) {
+  List<Offset> points = [];
+  double xStep = (obj![2].dx - obj[1].dx) / (iterations);
   double yStep = (obj[2].dy - obj[1].dy) / (iterations);
 
   for (int i = 0; i <= iterations; i++) {
-    points[i] = Offset(obj[1].dx + i * xStep, obj[1].dy + i * yStep);
+    points.add(Offset(obj[1].dx + i * xStep, obj[1].dy + i * yStep));
   }
 
   return points;
@@ -121,7 +122,7 @@ List<Offset> createCircularGrid(
 }
 
 List<Offset> createSquaredGrid(double scale, int repeat) {
-  List<Offset> grid =[];
+  List<Offset> grid = [];
   for (int y = -repeat; y <= repeat; y++) {
     for (int x = -repeat; x <= repeat; x++) {
       grid.add(Offset((x * scale), (y * scale)));
