@@ -47,7 +47,7 @@ class _ColorPaletteState extends State<ColorPalette> {
                 ),
                 onTap: () {
                   setState(() {
-                    appData.selectLayerColor(currentColor);
+                    appData.setLayerColor(currentColor, widget.layerModel);
                   });
                 },
               ),

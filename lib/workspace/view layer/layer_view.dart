@@ -99,15 +99,36 @@ class _LayerViewState extends State<LayerView> {
               DeleteLayer(onTap: deleteLayer),
             ],
           ),
-          AnimatedContainer(
-            height: expanded ? 80 : 0,
-            duration: Duration(milliseconds: 250),
-            child: ColorPalette(
-              layerModel: widget.layerModel,
-            ),
+          Column(
+            children: [
+              Row(children: [
+                SymetrizeOption(),
+              ],),
+              AnimatedContainer(
+                height: expanded ? 80 : 0,
+                duration: Duration(milliseconds: 250),
+                child: ColorPalette(
+                  layerModel: widget.layerModel,
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
+  }
+}
+
+class LayerOption extends StatefulWidget {
+  LayerOption({Key? key}) : super(key: key);
+
+  @override
+  _LayerOptionState createState() => _LayerOptionState();
+}
+
+class _LayerOptionState extends State<LayerOption> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

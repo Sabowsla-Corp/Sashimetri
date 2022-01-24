@@ -11,6 +11,7 @@ class _LayersDraggerState extends State<LayersDragger> {
   Offset layerOffset = Offset(0, 0);
   Offset windowSize = Offset(250, 550);
   Offset wSOffset = Offset(0, 0);
+  bool opened = true;
   void dragUpdte(DragUpdateDetails d) => setState(() => layerOffset += d.delta);
   void resizeUpdate(DragUpdateDetails d) => setState(() {
         wSOffset += d.delta;
@@ -20,6 +21,9 @@ class _LayersDraggerState extends State<LayersDragger> {
           wSOffset = Offset(wSOffset.dx, -200);
         }
       });
+  void onCloseOpen(bool e) => setState(() {
+        opened = !opened;
+      });
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -28,7 +32,7 @@ class _LayersDraggerState extends State<LayersDragger> {
       child: AnimatedContainer(
         margin: EdgeInsets.all(5),
         width: windowSize.dx + wSOffset.dx,
-        height: windowSize.dy + wSOffset.dy,
+        height: opened ? windowSize.dy + wSOffset.dy : 50,
         duration: Duration(milliseconds: 100),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -40,51 +44,77 @@ class _LayersDraggerState extends State<LayersDragger> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Draggable(
-                        onDragUpdate: dragUpdte,
-                        feedback: Container(),
-                        child: Center(
-                          child: Icon(Icons.grid_view_rounded,
-                              color: Colors.white, size: 15),
-                        ),
-                      ),
-                      Text(
-                        " Layers",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
-                  ),
+                DraggableHead(
+                  dragUpdte: dragUpdte,
+                  onToggle: onCloseOpen,
+                  isExpanded: opened,
                 ),
-                Expanded(child: ProyectLayersView()),
-                CrearCapa(),
+                opened ? Expanded(child: ProyectLayersView()) : Container(),
+                opened ? CrearCapa() : Container(),
               ],
             ),
-            Positioned(
-              right: 0,
-              bottom: 0,
-              child: Draggable(
-                onDragUpdate: resizeUpdate,
-                feedback: Container(),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Icon(
-                      Icons.api,
-                      color: Colors.white,
-                      size: 15,
+            opened
+                ? Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Draggable(
+                      onDragUpdate: resizeUpdate,
+                      feedback: Container(),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Icon(
+                            Icons.api,
+                            color: Colors.white,
+                            size: 15,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : Container(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DraggableHead extends StatelessWidget {
+  const DraggableHead(
+      {Key? key, this.dragUpdte, required this.onToggle, this.isExpanded})
+      : super(key: key);
+
+  final bool? isExpanded;
+  final dragUpdte;
+  final Function(bool) onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Draggable(
+            onDragUpdate: dragUpdte,
+            feedback: Container(),
+            child: Center(
+              child:
+                  Icon(Icons.grid_view_rounded, color: Colors.white, size: 15),
+            ),
+          ),
+          ExpandIcon(
+            isExpanded: !isExpanded!,
+            onPressed: onToggle,
+            color: Colors.white,
+          ),
+          Text(
+            " Layers",
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
       ),
     );
   }

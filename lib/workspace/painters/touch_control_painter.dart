@@ -9,24 +9,13 @@ class TouchControlPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    
     final paint = new Paint();
     paint.blendMode = model.blendMode;
     for (int i = 0; i < model.proyectLayers.length; i++) {
-      LayerModel layer = model.proyectLayers[i];
-      if (layer.visible) {
-        paint.color = layer.color;
-        paint.strokeWidth = layer.thickness + 1;
-        for (int i = 0; i <= layer.subdivisions; i++) {
-          canvas.drawLine(
-            layer.starts![i] + layer.center,
-            layer.ends![i] +  layer.center,
-            paint,
-          );
-        }
-      }
+      model.proyectLayers.forEach((layer) {
+        layer.draw(paint, canvas);
+      });
 
-      
     }
   }
 

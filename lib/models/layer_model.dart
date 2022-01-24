@@ -1,13 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:sashimetri/locator.dart';
-import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/workspace/sashi_functions.dart';
+
+const defaultPoints = [
+  Offset(0, 0),
+  Offset(100, 100),
+  Offset(50, 50),
+];
 
 class LayerModel {
   List<Offset>? grid;
-  List<Offset>? mainPoints;
+  List<Offset> mainPoints;
   List<Offset>? starts;
   List<Offset>? ends;
 
@@ -31,7 +35,7 @@ class LayerModel {
   int subdivisions = 10;
 
   LayerModel({
-    this.mainPoints,
+    this.mainPoints: defaultPoints,
     this.color: Colors.pink,
     this.name: "Layer",
     this.selected: false,
@@ -71,6 +75,11 @@ class LayerModel {
     );
   }
 
+  void recalculateLayer() {
+    starts = fillStartPoints(subdivisions, mainPoints);
+    ends = fillEndPoints(subdivisions, mainPoints);
+  }
+
   void toggleVisibility() {
     visible = !visible;
   }
@@ -87,33 +96,31 @@ class LayerModel {
   void deselect() => selected = false;
   void select() => selected = true;
 
-  void draw(Paint paint, Canvas canvas, Offset center) {
-    /*
+  void draw(Paint paint, Canvas canvas) {
     if (!visible) return;
 
     if (selected) {
       paint.color = Colors.amber;
-      paint.strokeWidth = thickness + 1;
+      paint.strokeWidth = thickness + 0.1;
       for (int i = 0; i <= subdivisions; i++) {
-        print("Start $i " + starts[i].toString());
-        print("Center " + center.toString());
-        print("End $i " + ends[i].toString());
-        canvas.drawLine(starts[i] + center, ends[i] + center, paint);
+     
+        canvas.drawLine(starts![i] + center, ends![i] + center, paint);
       }
     }
-  
+
     paint.color = color;
     paint.strokeWidth = thickness;
 
     for (int i = 0; i <= subdivisions; i++) {
-      canvas.drawLine(starts[i] + center, ends[i] + center, paint);
+      canvas.drawLine(starts![i] + center, ends![i] + center, paint);
     }
     if (symetryc) _drawSymetry(paint, canvas, center);
-   if (gridSnapping && selected) drawGrid(paint, canvas, center);
-   */
+    if (gridSnapping && selected) drawGrid(paint, canvas, center);
   }
+
   void dragPoint(int index, Offset delta) {
-    mainPoints![index] += delta;
+    mainPoints[index] += delta;
+    recalculateLayer();
   }
 
   void drawGrid(Paint paint, Canvas canvas, Offset center) {
@@ -125,17 +132,15 @@ class LayerModel {
   }
 
   void _drawSymetry(Paint paint, Canvas canvas, Offset center) {
-    /*
     var symetrycPoints = symetrycMetriPoints(mainPoints);
     symetrycPoints.forEach((symetrycPoint) {
       paint.color = color;
       List<Offset> starts = fillStartPoints(subdivisions, symetrycPoint);
       List<Offset> ends = fillEndPoints(subdivisions, symetrycPoint);
       for (int i = 0; i <= subdivisions; i++) {
-        //canvas.drawLine(starts[i] + center, ends[i] + center, paint);
+        canvas.drawLine(starts[i] + center, ends[i] + center, paint);
       }
     });
-    */
   }
 
   List<List<Offset>> symetrycMetriPoints(points) {

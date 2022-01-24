@@ -62,10 +62,6 @@ class AppData extends Model {
     repaintOnce();
   }
 
-  void selectLayerColor(Color color) {
-    selectedLayer().color = color;
-    notifyListeners();
-  }
 
   void changeGlowSize(double newSize) {
     selectedLayer().glowSize = newSize;
@@ -129,12 +125,8 @@ class AppData extends Model {
     notifyListeners();
   }
 
-  void setColorFromPalete(Color newColor) {
-    if (onBackgroundColorSelection) {
-      backgroundColor = newColor;
-    } else {
-      selectedLayer().changeColor(newColor);
-    }
+  void setLayerColor(Color newColor, LayerModel layerModel) {
+    layerModel.changeColor(newColor);
     repaintOnce();
   }
 
@@ -146,7 +138,7 @@ class AppData extends Model {
     proyectLayers.forEach((element) {
       element.deselect();
     });
-    var newLayer = LayerModel().randomLayer();
+    var newLayer = LayerModel(mainPoints: []).randomLayer();
     proyectLayers.add(newLayer);
     _selectedLayer = proyectLayers.length - 1;
     repaintOnce();
@@ -169,6 +161,7 @@ class AppData extends Model {
 
   void dragLayerPoint(Offset delta, int index) {
     selectedLayer().dragPoint(index, delta);
+    repaintOnce();
     notifyListeners();
   }
 

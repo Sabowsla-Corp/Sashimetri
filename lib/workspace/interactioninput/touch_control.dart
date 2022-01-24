@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
-import 'package:sashimetri/models/layer_model.dart';
 import 'package:sashimetri/workspace/painters/touch_control_painter.dart';
 
 import '../sashi_functions.dart';
@@ -21,17 +20,12 @@ class TouchControlState extends State<TouchControl> {
     final model = AppData.of(context, rebuild: true);
 
     void _handlePanUpdate(DragUpdateDetails details) {
-      
-      setState(() {
-        print("Draging Object");
-        print("Details " + details.delta.toString());
-        model.dragLayerPoint(details.delta, nearestMetriIndex);
-      });
+      model.dragLayerPoint(details.delta, nearestMetriIndex);
     }
 
     void _handlePanStart(DragStartDetails details) {
       Offset center = model.selectedLayer().center;
-      var mainPoints = model.selectedLayer().mainPoints!;
+      var mainPoints = model.selectedLayer().mainPoints;
       setState(
         () {
           nearestMetriIndex = nearestPointToTouch(
