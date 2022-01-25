@@ -22,6 +22,7 @@ class LayerModel {
   String name;
   bool symetryc;
   bool gridSnapping;
+  bool gridDrawing;
   GridType gridType;
 
   bool selected;
@@ -43,7 +44,8 @@ class LayerModel {
     this.visible: true,
     this.subdivisions: 10,
     this.symetryc: true,
-    this.gridSnapping: false,
+    this.gridSnapping: true,
+    this.gridDrawing: false,
     this.gridType: GridType.squared,
     this.grid,
   }) {
@@ -54,11 +56,13 @@ class LayerModel {
     ];
     starts = fillStartPoints(subdivisions, mainPoints);
     ends = fillEndPoints(subdivisions, mainPoints);
-
+    resetCenter();
+    setGridType(gridType);
+  }
+  void resetCenter() {
     Size windowSize =
         MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
     center = Offset(windowSize.width / 2, windowSize.height / 2);
-    setGridType(gridType);
   }
 
   void changeColor(Color newColor) {
@@ -96,6 +100,7 @@ class LayerModel {
     snapPoints();
   }
 
+  void toggleGridView() => gridDrawing = !gridDrawing;
   void deselect() => selected = false;
   void select() => selected = true;
 
@@ -117,20 +122,21 @@ class LayerModel {
       canvas.drawLine(starts![i] + center, ends![i] + center, paint);
     }
     if (symetryc) _drawSymetry(paint, canvas, center);
+
     if (gridSnapping && selected) drawGrid(paint, canvas, center);
   }
 
   void dragPoint(int index, Offset delta) {
     mainPoints[index] += delta;
+
     recalculateLayer();
   }
 
   void drawGrid(Paint paint, Canvas canvas, Offset center) {
-    /* print("Drawing Grid");
-    grid.forEach((element) {
-         canvas.drawCircle(element + center, 2, paint);
+    if (!gridDrawing) return;
+    grid!.forEach((element) {
+      canvas.drawCircle(element + center, 2, paint);
     });
-    */
   }
 
   void _drawSymetry(Paint paint, Canvas canvas, Offset center) {
@@ -178,21 +184,21 @@ class LayerModel {
   }
 
   void snapPoints() {
-    /*
-    print("SnapingPoints");
+    if (!gridSnapping) return;
     for (int i = 0; i < mainPoints.length; i++) {
       int nearestGridIndex = 0;
       double near = double.infinity;
-      for (int k = 0; k < grid.length; k++) {
-        double d = abs((grid[k] - mainPoints[i]).distance);
+      for (int k = 0; k < grid!.length; k++) {
+        double d = abs((grid![k] - mainPoints[i]).distance);
         if (d < near) {
           near = d;
           nearestGridIndex = k;
         }
       }
-      mainPoints[i] = grid[nearestGridIndex];
+      mainPoints[i] = grid![nearestGridIndex];
     }
-    */
+
+    recalculateLayer();
   }
 
   void setGridType(GridType _newGrid) {

@@ -7,6 +7,7 @@ import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
 import '../../locator.dart';
 import 'delete_layer.dart';
 import 'layer_icon.dart';
+import 'layer_option.dart';
 import 'toggle_visibility.dart';
 
 class LayerView extends StatefulWidget {
@@ -47,19 +48,12 @@ class _LayerViewState extends State<LayerView> {
     }
 
     void onChangeText() {}
-
-    void onToggleVisibility() {
-      appData.toggleVisibility();
-    }
-
-    void deleteLayer() {
-      appData.deleteLayer(layerModel);
-    }
-
-    void symetrizeLayer() {
-      appData.symetrizeLayer(layerModel);
-    }
-
+    void resetCenter() => appData.resetCenter(layerModel);
+    void snapLayer() => appData.snapLayer(layerModel);
+    void deleteLayer() => appData.deleteLayer(layerModel);
+    void onToggleVisibility() => appData.toggleVisibility();
+    void symetrizeLayer() => appData.symetrizeLayer(layerModel);
+    void onToggleGrid() => appData.toggleLayerGridDraw(layerModel);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 2),
       decoration: darkestBox5,
@@ -108,11 +102,28 @@ class _LayerViewState extends State<LayerView> {
               Row(
                 children: [
                   LayerOption(
-                    onTap: () {
-                      symetrizeLayer();
-                    },
-                    icon: Icons.sync,
+                    onTap: symetrizeLayer,
+                    icon: "assets/symetrize_icon.png",
                     enabled: layerModel.symetryc,
+                    visible: expanded,
+                  ),
+                  LayerOption(
+                    onTap: snapLayer,
+                    icon: "assets/snap_icon.png",
+                    enabled: layerModel.gridSnapping,
+                    visible: expanded,
+                  ),
+                  LayerOption(
+                    onTap: onToggleGrid,
+                    icon: "assets/grid_draw.png",
+                    enabled: layerModel.gridDrawing,
+                    visible: expanded,
+                  ),
+                  LayerOption(
+                    onTap: resetCenter,
+                    icon: "assets/reset_center.png",
+                    enabled: true,
+                    visible: expanded,
                   ),
                 ],
               ),
@@ -126,39 +137,6 @@ class _LayerViewState extends State<LayerView> {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class LayerOption extends StatefulWidget {
-  final onTap;
-  final IconData icon;
-  final bool enabled;
-
-  LayerOption({
-    Key? key,
-    required this.onTap,
-    required this.icon,
-    required this.enabled,
-  }) : super(key: key);
-
-  @override
-  _LayerOptionState createState() => _LayerOptionState();
-}
-
-class _LayerOptionState extends State<LayerOption> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 20,
-      width: 20,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: widget.onTap,
-          child: Icon(widget.icon),
-        ),
       ),
     );
   }

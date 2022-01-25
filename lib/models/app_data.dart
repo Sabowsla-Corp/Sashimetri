@@ -19,9 +19,7 @@ class AppData extends Model {
   Offset canvasCenter = Offset(0, 0);
 
   List<LayerModel> proyectLayers = [
-    LayerModel().randomLayer(
-    
-    ),
+    LayerModel().randomLayer(),
   ];
 
   void selectLayer(LayerModel _layerModel) {
@@ -50,13 +48,28 @@ class AppData extends Model {
 
   void updateConstraints(DragPoints newPosition) {}
 */
-  void snapMetriToItsGrid() {
-    selectedLayer().snapPoints();
-    notifyListeners();
+  void snapLayer(LayerModel layer) {
+    layer.gridSnapping = !layer.gridSnapping;
+    layer.snapPoints();
+    repaintOnce();
   }
 
+  void handlePanEnd() {
+    selectedLayer().snapPoints();
+    repaintOnce();
+  }
+
+  void resetCenter(LayerModel layerModel) {
+    layerModel.resetCenter();
+    repaintOnce();
+  }
   void deleteLayer(LayerModel _layer) {
     proyectLayers.remove(_layer);
+    repaintOnce();
+  }
+
+  void toggleLayerGridDraw(LayerModel _layer) {
+    _layer.toggleGridView();
     repaintOnce();
   }
 

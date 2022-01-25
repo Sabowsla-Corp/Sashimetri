@@ -21,6 +21,7 @@ class TouchControlState extends State<TouchControl> {
 
     void _handlePanUpdate(DragUpdateDetails details) {
       model.dragLayerPoint(details.delta, nearestMetriIndex);
+      print("Last Update");
     }
 
     void _handlePanStart(DragStartDetails details) {
@@ -37,7 +38,8 @@ class TouchControlState extends State<TouchControl> {
     }
 
     void _handlePanEnd(DragEndDetails details) {
-      model.snapMetriToItsGrid();
+      print("Pan Ended");
+      model.handlePanEnd();
     }
 
     void onPointerMove(PointerEvent details) {
