@@ -15,7 +15,7 @@ class LayerModel {
   List<Offset>? starts;
   List<Offset>? ends;
 
-  Offset center = Offset(250, 250);
+  Offset center = Offset(50, 50);
   Color color;
   double thickness;
   bool visible;
@@ -54,7 +54,10 @@ class LayerModel {
     ];
     starts = fillStartPoints(subdivisions, mainPoints);
     ends = fillEndPoints(subdivisions, mainPoints);
-    center = Offset(250, 250);
+
+    Size windowSize =
+        MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
+    center = Offset(windowSize.width / 2, windowSize.height / 2);
     setGridType(gridType);
   }
 
@@ -103,7 +106,6 @@ class LayerModel {
       paint.color = Colors.amber;
       paint.strokeWidth = thickness + 0.1;
       for (int i = 0; i <= subdivisions; i++) {
-     
         canvas.drawLine(starts![i] + center, ends![i] + center, paint);
       }
     }

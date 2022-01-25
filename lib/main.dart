@@ -5,12 +5,14 @@ import 'models/app_data.dart';
 import 'workspace/proyect_page.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp(model: setupLocator()));
 }
 
 class MyApp extends StatelessWidget {
   final AppData model;
   MyApp({required this.model});
+
   @override
   Widget build(BuildContext context) {
     return ScopedModel<AppData>(

@@ -17,8 +17,11 @@ class AppData extends Model {
   Color backgroundColor = Colors.black;
   BlendMode blendMode = BlendMode.srcOver;
   Offset canvasCenter = Offset(0, 0);
+
   List<LayerModel> proyectLayers = [
-    LayerModel().randomLayer(),
+    LayerModel().randomLayer(
+    
+    ),
   ];
 
   void selectLayer(LayerModel _layerModel) {
@@ -61,7 +64,6 @@ class AppData extends Model {
     selectedLayer().toggleVisibility();
     repaintOnce();
   }
-
 
   void changeGlowSize(double newSize) {
     selectedLayer().glowSize = newSize;
@@ -154,8 +156,8 @@ class AppData extends Model {
     repaintOnce();
   }
 
-  void symetrizeMetri(int index) {
-    selectedLayer().symetryc = !selectedLayer().symetryc;
+  void symetrizeLayer(LayerModel layer) {
+    layer.symetryc = !layer.symetryc;
     repaintOnce();
   }
 

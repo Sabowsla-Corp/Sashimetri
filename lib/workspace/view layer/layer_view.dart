@@ -39,10 +39,10 @@ class _LayerViewState extends State<LayerView> {
 
     void onExpand(bool e) {
       setState(() {
-         expanded = !expanded;
-         if(!e){
-           onSelect();
-         }
+        expanded = !expanded;
+        if (!e) {
+          onSelect();
+        }
       });
     }
 
@@ -54,6 +54,10 @@ class _LayerViewState extends State<LayerView> {
 
     void deleteLayer() {
       appData.deleteLayer(layerModel);
+    }
+
+    void symetrizeLayer() {
+      appData.symetrizeLayer(layerModel);
     }
 
     return Container(
@@ -101,9 +105,17 @@ class _LayerViewState extends State<LayerView> {
           ),
           Column(
             children: [
-              Row(children: [
-                SymetrizeOption(),
-              ],),
+              Row(
+                children: [
+                  LayerOption(
+                    onTap: () {
+                      symetrizeLayer();
+                    },
+                    icon: Icons.sync,
+                    enabled: layerModel.symetryc,
+                  ),
+                ],
+              ),
               AnimatedContainer(
                 height: expanded ? 80 : 0,
                 duration: Duration(milliseconds: 250),
@@ -120,7 +132,16 @@ class _LayerViewState extends State<LayerView> {
 }
 
 class LayerOption extends StatefulWidget {
-  LayerOption({Key? key}) : super(key: key);
+  final onTap;
+  final IconData icon;
+  final bool enabled;
+
+  LayerOption({
+    Key? key,
+    required this.onTap,
+    required this.icon,
+    required this.enabled,
+  }) : super(key: key);
 
   @override
   _LayerOptionState createState() => _LayerOptionState();
@@ -129,6 +150,16 @@ class LayerOption extends StatefulWidget {
 class _LayerOptionState extends State<LayerOption> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      height: 20,
+      width: 20,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: widget.onTap,
+          child: Icon(widget.icon),
+        ),
+      ),
+    );
   }
 }
