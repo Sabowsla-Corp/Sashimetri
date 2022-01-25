@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
+import 'package:sashimetri/time%20line/time_line.dart';
 
 import 'interactioninput/touch_control.dart';
 import 'layers_dragger.dart';
@@ -17,10 +20,18 @@ class _ProjectPageState extends State<ProjectPage> {
     var model = AppData.of(context);
     return Scaffold(
       backgroundColor: model.backgroundColor,
-      body: Stack(
+      body: Column(
         children: [
-          TouchControl(),
-          LayersDragger(),
+          Expanded(
+            
+            child: Stack(
+              children: [
+                TouchControl(),
+                LayersDragger(),
+              ],
+            ),
+          ),
+          TimeLineInspector(),
         ],
       ),
     );
