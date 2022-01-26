@@ -9,11 +9,14 @@ class CrearCapa extends StatelessWidget {
     final model = AppData.of(context);
     return Container(
       margin: EdgeInsets.all(5),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white12,
+      ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(10),
           onTap: model.createLayer,
           child: Padding(
             padding: EdgeInsets.all(10),
