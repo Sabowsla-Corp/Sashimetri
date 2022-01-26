@@ -82,6 +82,20 @@ class LayerModel {
     );
   }
 
+  void randomize(){
+      Size windowSize =
+        MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
+    double halfWidth = windowSize.width /2;
+    double halfHeight  = windowSize.height / 2;
+    for(int i = 0 ; i < mainPoints.length; i++){
+
+      double randomX = Random.secure().nextDouble() * halfWidth;
+      double randomY = Random.secure().nextDouble() * halfHeight;
+      mainPoints[i] = Offset(randomX, randomY);
+    }
+    recalculateLayer();
+  }
+
   void recalculateLayer() {
     starts = fillStartPoints(subdivisions, mainPoints);
     ends = fillEndPoints(subdivisions, mainPoints);

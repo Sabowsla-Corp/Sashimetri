@@ -98,6 +98,7 @@ class DraggableHead extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Draggable(
+            data: this,
             onDragUpdate: dragUpdte,
             feedback: Container(),
             child: Center(

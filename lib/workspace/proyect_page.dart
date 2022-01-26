@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/time%20line/time_line.dart';
+import 'package:sashimetri/tools/movable_panel.dart';
 
 import 'interactioninput/touch_control.dart';
 import 'layers_dragger.dart';
@@ -23,11 +24,11 @@ class _ProjectPageState extends State<ProjectPage> {
       body: Column(
         children: [
           Expanded(
-            
             child: Stack(
               children: [
                 TouchControl(),
-                LayersDragger(),
+                MovablePanel(),
+         
               ],
             ),
           ),
@@ -37,4 +38,3 @@ class _ProjectPageState extends State<ProjectPage> {
     );
   }
 }
-

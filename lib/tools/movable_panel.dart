@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
-/*
+import 'package:sashimetri/workspace/layers_dragger.dart';
+
+import 'custom_drag_target.dart';
+import 'drag_points.dart';
+import 'movable_panel_clippers.dart';
+
 class MovablePanel extends StatefulWidget {
   MovablePanel({Key? key}) : super(key: key);
 
@@ -9,8 +14,8 @@ class MovablePanel extends StatefulWidget {
 }
 
 class _MovablePanelState extends State<MovablePanel> {
-  DragPoints previewPosition = DragPoints.left;
-  bool onDragView = false;
+  DragPoints previewPosition = DragPoints.right;
+
   @override
   Widget build(BuildContext context) {
     final model = AppData.of(context);
@@ -21,14 +26,11 @@ class _MovablePanelState extends State<MovablePanel> {
         if (onDragView) TopDropPreview(),
         if (onDragView) LeftDropPreview(),
         if (onDragView) RightDropPreview(),
-        ToolsPanel(),
-        if (true) DragablePanel(),
+        LayersDragger(),
       ],
     );
   }
 }
-
-enum DragPoints { top, bottom, left, right }
 
 class DragablePanel extends StatefulWidget {
   DragablePanel({Key? key}) : super(key: key);
@@ -109,7 +111,7 @@ class RightDropPreview extends StatelessWidget {
           child: Container(),
           flex: 6,
         ),
-        DropPreview(
+        CustomDragTarget(
           dragablePosition: DragPoints.right,
           clipper: RightClipper(),
           boxConstraints: BoxConstraints(
@@ -129,7 +131,7 @@ class LeftDropPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        DropPreview(
+        CustomDragTarget(
           dragablePosition: DragPoints.left,
           clipper: LeftCliper(),
           boxConstraints: BoxConstraints(
@@ -151,7 +153,7 @@ class TopDropPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        DropPreview(
+        CustomDragTarget(
           dragablePosition: DragPoints.top,
           clipper: TopClipper(),
           boxConstraints: BoxConstraints(
@@ -177,7 +179,7 @@ class BottomDropPreview extends StatelessWidget {
           child: Container(),
           flex: 6,
         ),
-        DropPreview(
+        CustomDragTarget(
           dragablePosition: DragPoints.bottom,
           clipper: BottomClipper(),
           boxConstraints: BoxConstraints(
@@ -190,126 +192,3 @@ class BottomDropPreview extends StatelessWidget {
   }
 }
 
-class DropPreview extends StatefulWidget {
-  final BoxConstraints boxConstraints;
-  final DragPoints dragablePosition;
-  final clipper;
-  DropPreview(
-      {Key? key,
-      this.clipper,
-      required this.boxConstraints,
-      required this.dragablePosition})
-      : super(key: key);
-
-  @override
-  _DropPreviewState createState() => _DropPreviewState();
-}
-
-class _DropPreviewState extends State<DropPreview> {
-  Duration d500 = Duration(milliseconds: 500);
-  Curve ease = Curves.ease;
-  bool onHover = false;
-  @override
-  Widget build(BuildContext context) {
-    final model = AppData.of(context);
-    return ConstrainedBox(
-      constraints: widget.boxConstraints,
-      child: ClipPath(
-        clipper: widget.clipper,
-        child: AnimatedContainer(
-          duration: d500,
-          width: double.infinity,
-          curve: ease,
-          decoration: BoxDecoration(
-            color: onHover
-                ? Colors.black.withAlpha(60)
-                : Colors.black.withAlpha(30),
-          ),
-          child: InkWell(
-            mouseCursor: MouseCursor.uncontrolled,
-            onHover: (value) {
-              setState(() {
-                onHover = value;
-                model.setNewToolPosition(widget.dragablePosition);
-              });
-            },
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            onTap: () {},
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class BottomClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = new Path();
-    List<Offset> points = [];
-    points.add(Offset(0, size.height));
-    points.add(Offset(size.height, 0));
-    points.add(Offset(size.width - size.height, 0));
-    points.add(Offset(size.width, size.height));
-    path.addPolygon(points, true);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class TopClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = new Path();
-    List<Offset> points = [];
-    points.add(Offset(0, 0));
-    points.add(Offset(size.height, size.height));
-    points.add(Offset(size.width - size.height, size.height));
-    points.add(Offset(size.width, 0));
-    path.addPolygon(points, true);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class LeftCliper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = new Path();
-    List<Offset> points = [];
-    points.add(Offset(0, 0));
-    points.add(Offset(size.height, size.height));
-    points.add(Offset(size.width, size.height - size.width));
-    points.add(Offset(0, size.height));
-    path.addPolygon(points, true);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class RightClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = new Path();
-    List<Offset> points = [];
-    points.add(Offset(size.width, 0));
-    points.add(Offset(0, size.width));
-    points.add(Offset(0, size.height - size.width));
-    points.add(Offset(size.width, size.height));
-    path.addPolygon(points, true);
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-*/

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:sashimetri/tools/drag_points.dart';
 import 'layer_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -7,13 +9,19 @@ class AppData extends Model {
     return ScopedModel.of<AppData>(context, rebuildOnChange: rebuild);
   }
 
-  int _selectedLayer = 0;
+//Timeline Variables
+  int currentFrame = 1;
+  int endFrame = 300;
+  int startFrame =1;
+  
+//-------------------------------
 
+  int _selectedLayer = 0;
   int selectedMetriIndex = 0;
   int lastMetriPointIndex = 0;
   bool canChangeMetriIndex = true;
   bool onBackgroundColorSelection = false;
-  //DragPoints currentToolPostion = DragPoints.left;
+  DragPoints currentToolPostion = DragPoints.left;
   Color backgroundColor = Colors.black;
   BlendMode blendMode = BlendMode.srcOver;
   Offset canvasCenter = Offset(0, 0);
@@ -59,10 +67,15 @@ class AppData extends Model {
     repaintOnce();
   }
 
+void randomize(LayerModel layerModel){
+  layerModel.randomize();
+  repaintOnce();
+}
   void resetCenter(LayerModel layerModel) {
     layerModel.resetCenter();
     repaintOnce();
   }
+
   void deleteLayer(LayerModel _layer) {
     proyectLayers.remove(_layer);
     repaintOnce();

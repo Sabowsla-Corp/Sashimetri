@@ -48,6 +48,7 @@ class _LayerViewState extends State<LayerView> {
     }
 
     void onChangeText() {}
+    void randomize() => appData.randomize(layerModel);
     void resetCenter() => appData.resetCenter(layerModel);
     void snapLayer() => appData.snapLayer(layerModel);
     void deleteLayer() => appData.deleteLayer(layerModel);
@@ -122,6 +123,12 @@ class _LayerViewState extends State<LayerView> {
                   LayerOption(
                     onTap: resetCenter,
                     icon: "assets/reset_center.png",
+                    enabled: true,
+                    visible: expanded,
+                  ),
+                  LayerOption(
+                    onTap: randomize,
+                    icon: "assets/shuffle.png",
                     enabled: true,
                     visible: expanded,
                   ),
