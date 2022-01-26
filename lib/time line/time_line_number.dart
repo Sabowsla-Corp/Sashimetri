@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/app_data.dart';
-import 'package:scoped_model/scoped_model.dart';
-
 import 'side_arrows.dart';
 
 class TimeLineNumber extends StatefulWidget {
@@ -12,7 +8,7 @@ class TimeLineNumber extends StatefulWidget {
   final Function(int newValue) onChange;
   final bool rightBorder;
   final bool leftBorder;
-  
+
   const TimeLineNumber({
     Key? key,
     required this.number,
@@ -59,8 +55,7 @@ class _TimeLineNumberState extends State<TimeLineNumber> {
               increment: decrement,
               hover: hover,
               isLeft: true,
-             leftBorder: widget.leftBorder,
-              
+              leftBorder: widget.leftBorder,
             ),
             Container(
               decoration: BoxDecoration(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/app_data.dart';
-import 'package:sashimetri/workspace/layers_dragger.dart';
+import 'package:sashimetri/workspace/layer%20dragger/layers_dragger.dart';
 
 import 'custom_drag_target.dart';
 import 'drag_points.dart';
@@ -18,7 +17,6 @@ class _MovablePanelState extends State<MovablePanel> {
 
   @override
   Widget build(BuildContext context) {
-    final model = AppData.of(context);
     bool onDragView = true;
     return Stack(
       children: [
@@ -28,74 +26,6 @@ class _MovablePanelState extends State<MovablePanel> {
         if (onDragView) RightDropPreview(),
         LayersDragger(),
       ],
-    );
-  }
-}
-
-class DragablePanel extends StatefulWidget {
-  DragablePanel({Key? key}) : super(key: key);
-
-  @override
-  _DragablePanelState createState() => _DragablePanelState();
-}
-
-class _DragablePanelState extends State<DragablePanel> {
-  bool onDrag = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final model = AppData.of(context);
-    return Draggable(
-      child: Container(
-        color: Colors.transparent,
-      ),
-      feedback: Container(
-        child: DragItem(),
-      ),
-      childWhenDragging: Container(
-        child: DragItem(),
-      ),
-    );
-  }
-}
-
-class ToolsPanel extends StatelessWidget {
-  const ToolsPanel({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey.shade700,
-      child: Container(
-        width: 350,
-        child: Column(
-          children: [
-            Container(
-              height: 1,
-              color: Colors.grey.shade800,
-            ),
-            Container(
-              height: 1,
-              color: Colors.grey.shade800,
-            ),
-            Container(
-              height: 1,
-              color: Colors.grey.shade800,
-            ),
-            //BlendModeWidget(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DragItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Icon(
-      Icons.view_headline,
-      size: 30,
     );
   }
 }
@@ -191,4 +121,3 @@ class BottomDropPreview extends StatelessWidget {
     );
   }
 }
-

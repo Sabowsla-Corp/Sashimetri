@@ -1,10 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/app_data.dart';
 
 import 'drag_points.dart';
-import 'movable_panel.dart';
 
 class CustomDragTarget extends StatefulWidget {
   final BoxConstraints boxConstraints;
@@ -25,9 +21,20 @@ class _CustomDragTargetState extends State<CustomDragTarget> {
   Duration d500 = Duration(milliseconds: 500);
   Curve ease = Curves.ease;
   bool onHover = false;
+  void onMove(dynamic e) {
+    setState(() {
+      onHover = true;
+    });
+  }
+
+  void onLeave(dynamic e) {
+    setState(() {
+      onHover = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final model = AppData.of(context);
     return ConstrainedBox(
       constraints: widget.boxConstraints,
       child: ClipPath(
@@ -46,18 +53,12 @@ class _CustomDragTargetState extends State<CustomDragTarget> {
             onAccept: (dynamic panelInfReference) {
               print("Panel Accepted");
             },
-onMove: (dynamic shiMoived){
-
-  print("Shit Moved");
-},
-onWillAccept: (dynamic ibje){
-  print("ill accept");
-   return true;
-},
+            onMove: onMove,
+            onLeave: onLeave,
             builder: (context, info1, info2) {
               return Container(
-                color: Colors.greenAccent,
-                child: Text("sadasdasdasd"),
+                color: Colors.transparent,
+                child: Text(""),
               );
             },
           ),

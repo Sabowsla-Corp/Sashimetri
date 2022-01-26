@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:sashimetri/tools/drag_points.dart';
 import 'layer_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -12,8 +12,8 @@ class AppData extends Model {
 //Timeline Variables
   int currentFrame = 1;
   int endFrame = 300;
-  int startFrame =1;
-  
+  int startFrame = 1;
+
 //-------------------------------
 
   int _selectedLayer = 0;
@@ -67,10 +67,11 @@ class AppData extends Model {
     repaintOnce();
   }
 
-void randomize(LayerModel layerModel){
-  layerModel.randomize();
-  repaintOnce();
-}
+  void randomize(LayerModel layerModel) {
+    layerModel.randomize();
+    repaintOnce();
+  }
+
   void resetCenter(LayerModel layerModel) {
     layerModel.resetCenter();
     repaintOnce();

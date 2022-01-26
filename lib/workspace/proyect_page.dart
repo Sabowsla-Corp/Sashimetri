@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/time%20line/time_line.dart';
 import 'package:sashimetri/tools/movable_panel.dart';
 
 import 'interactioninput/touch_control.dart';
-import 'layers_dragger.dart';
 
 class ProjectPage extends StatefulWidget {
   ProjectPage({Key? key}) : super(key: key);
@@ -28,7 +25,6 @@ class _ProjectPageState extends State<ProjectPage> {
               children: [
                 TouchControl(),
                 MovablePanel(),
-         
               ],
             ),
           ),

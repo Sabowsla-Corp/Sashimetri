@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
-import 'package:sashimetri/models/layer_model.dart';
 
 class TouchControlPainter extends CustomPainter {
   final AppData model;
@@ -15,7 +14,6 @@ class TouchControlPainter extends CustomPainter {
       model.proyectLayers.forEach((layer) {
         layer.draw(paint, canvas);
       });
-
     }
   }
 

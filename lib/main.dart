@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Sashimetri',
         theme: ThemeData(
           primarySwatch: Colors.pink,
+          brightness: Brightness.dark,
         ),
         home: ProjectPage(),
       ),

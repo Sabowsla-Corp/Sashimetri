@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/app_data.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class SideArrows extends StatefulWidget {
   const SideArrows({

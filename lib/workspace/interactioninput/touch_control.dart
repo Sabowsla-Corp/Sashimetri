@@ -51,7 +51,7 @@ class TouchControlState extends State<TouchControl> {
     }
 
     void onPointerSignal(PointerSignalEvent details) {
-      PointerSignalEvent scrollEvent = details;
+      //PointerSignalEvent scrollEvent = details;
 
       // model.ajustarEscalaCuadricula(scrollEvent.scrollDelta.dy / 100);
     }
