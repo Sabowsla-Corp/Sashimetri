@@ -8,6 +8,7 @@ class SideArrows extends StatefulWidget {
     this.leftBorder = false,
     this.rightBorder = false,
     this.isLeft = false,
+    this.toolTip = "Change Value",
   }) : super(key: key);
 
   final increment;
@@ -15,38 +16,41 @@ class SideArrows extends StatefulWidget {
   final bool isLeft;
   final bool leftBorder;
   final bool rightBorder;
-
+  final String toolTip;
   @override
   State<SideArrows> createState() => _SideArrowsState();
 }
 
 class _SideArrowsState extends State<SideArrows> {
-  var r3 = Radius.circular(4);
+  var r4 = Radius.circular(4);
   @override
   Widget build(BuildContext context) {
     var leftBox = BoxDecoration(
       borderRadius: BorderRadius.only(
-        topLeft: widget.leftBorder ? r3 : Radius.zero,
-        bottomLeft: widget.leftBorder ? r3 : Radius.zero,
-        topRight: widget.rightBorder ? r3 : Radius.zero,
-        bottomRight: widget.rightBorder ? r3 : Radius.zero,
+        topLeft: widget.leftBorder ? r4 : Radius.zero,
+        bottomLeft: widget.leftBorder ? r4 : Radius.zero,
+        topRight: widget.rightBorder ? r4 : Radius.zero,
+        bottomRight: widget.rightBorder ? r4 : Radius.zero,
       ),
       color: Colors.grey.shade700,
     );
-    return Container(
-      decoration: leftBox,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.only(topRight: r3, bottomRight: r3),
-          onTap: widget.increment,
-          child: Padding(
-            padding: const EdgeInsets.all(2),
-            child: Text(
-              widget.isLeft ? " < " : " > ",
-              style: TextStyle(
-                fontSize: 13,
-                color: widget.hover ? Colors.white : Colors.white10,
+    return Tooltip(
+      message: widget.toolTip,
+      child: Container(
+        decoration: leftBox,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.only(topRight: r4, bottomRight: r4),
+            onTap: widget.increment,
+            child: Padding(
+              padding: const EdgeInsets.all(2),
+              child: Text(
+                widget.isLeft ? " < " : " > ",
+                style: TextStyle(
+                  fontSize: 13,
+                  color: widget.hover ? Colors.white : Colors.white10,
+                ),
               ),
             ),
           ),

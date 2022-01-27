@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:sashimetri/time%20line/time_line_data.dart';
 
 import 'package:sashimetri/tools/drag_points.dart';
 import 'layer_model.dart';
@@ -10,9 +13,7 @@ class AppData extends Model {
   }
 
 //Timeline Variables
-  int currentFrame = 1;
-  int endFrame = 300;
-  int startFrame = 1;
+  TimeLineData timeLineData = TimeLineData();
 
 //-------------------------------
 
@@ -25,10 +26,28 @@ class AppData extends Model {
   Color backgroundColor = Colors.black;
   BlendMode blendMode = BlendMode.srcOver;
   Offset canvasCenter = Offset(0, 0);
-
+  Timer? timer;
+  AnimationController? animationController;
   List<LayerModel> proyectLayers = [
     LayerModel().randomLayer(),
   ];
+
+  void animateTimeLine() {
+    /*
+    timer = Timer.periodic(
+        Duration(
+          milliseconds: 1000 ~/ timeLineData.frameFrate,
+        ), (timer) {
+      timeLineData.nextFrame();
+      notifyListeners();
+    });
+    */
+  }
+
+  void stopTimeLineAnimation() {
+    timer!.cancel();
+    notifyListeners();
+  }
 
   void selectLayer(LayerModel _layerModel) {
     proyectLayers.forEach((e) => e.deselect());

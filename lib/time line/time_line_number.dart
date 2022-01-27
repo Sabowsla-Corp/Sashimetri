@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
 import 'side_arrows.dart';
 
 class TimeLineNumber extends StatefulWidget {
@@ -56,18 +57,19 @@ class _TimeLineNumberState extends State<TimeLineNumber> {
               hover: hover,
               isLeft: true,
               leftBorder: widget.leftBorder,
+              toolTip: "Remove 1 Second",
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade700,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(2),
-                child: Text(
-                  widget.prefix + "   " + widget.number.toString() + "   ",
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.white,
+            Tooltip(
+              message: "Duration in Seconds",
+              child: Container(
+                decoration: BoxDecoration(
+                  color: boxColor,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(2),
+                  child: Text(
+                    widget.prefix + "   " + widget.number.toString() + "   ",
+                    style: timeLineNumberStyle,
                   ),
                 ),
               ),
@@ -76,6 +78,7 @@ class _TimeLineNumberState extends State<TimeLineNumber> {
               increment: increment,
               hover: hover,
               rightBorder: widget.rightBorder,
+              toolTip: "Add 1 Second",
             ),
           ],
         ),

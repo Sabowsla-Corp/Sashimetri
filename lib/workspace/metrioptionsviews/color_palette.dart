@@ -4,8 +4,12 @@ import 'package:sashimetri/models/layer_model.dart';
 
 class ColorPalette extends StatefulWidget {
   final LayerModel layerModel;
-
-  ColorPalette({Key? key, required this.layerModel});
+  final bool expanded;
+  ColorPalette({
+    Key? key,
+    required this.layerModel,
+    this.expanded = false,
+  });
 
   @override
   State<ColorPalette> createState() => _ColorPaletteState();
@@ -15,12 +19,14 @@ class _ColorPaletteState extends State<ColorPalette> {
   @override
   Widget build(BuildContext context) {
     AppData appData = AppData.of(context);
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
+      height: widget.expanded ? null : 0,
       color: Colors.grey.shade900,
-      height: 50,
       padding: EdgeInsets.all(2),
       child: GridView.builder(
         scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         itemCount: Colors.primaries.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: Colors.primaries.length ~/ 2,

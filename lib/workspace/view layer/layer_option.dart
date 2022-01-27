@@ -30,8 +30,8 @@ class _LayerOptionState extends State<LayerOption> {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 2),
               child: Container(
-                width: 22,
-                height: 22,
+                width: 25,
+                height: 25,
                 color: widget.enabled ? Colors.white24 : Colors.white10,
                 child: Material(
                   color: Colors.transparent,

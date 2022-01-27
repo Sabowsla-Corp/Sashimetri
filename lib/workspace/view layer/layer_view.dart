@@ -3,6 +3,7 @@ import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/models/layer_model.dart';
 import 'package:sashimetri/workspace/metrioptionsviews/color_palette.dart';
 import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
+import 'package:sashimetri/workspace/view%20layer/layer_main_point_view.dart';
 
 import '../../locator.dart';
 import 'delete_layer.dart';
@@ -22,7 +23,7 @@ class LayerView extends StatefulWidget {
 }
 
 class _LayerViewState extends State<LayerView> {
-  bool expanded = false;
+  bool expanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -139,12 +140,13 @@ class _LayerViewState extends State<LayerView> {
                   ),
                 ],
               ),
-              AnimatedContainer(
-                height: expanded ? 80 : 0,
-                duration: Duration(milliseconds: 250),
-                child: ColorPalette(
-                  layerModel: widget.layerModel,
-                ),
+              LayerMainPointsView(
+                mainPoints: layerModel.mainPoints,
+                expanded: expanded,
+              ),
+              ColorPalette(
+                layerModel: widget.layerModel,
+                expanded: expanded,
               ),
             ],
           ),

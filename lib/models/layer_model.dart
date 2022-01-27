@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:sashimetri/models/utils.dart';
 import 'package:sashimetri/workspace/sashi_functions.dart';
 
 const defaultPoints = [
@@ -60,8 +61,8 @@ class LayerModel {
     setGridType(gridType);
   }
   void resetCenter() {
-    Size windowSize =
-        MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
+    Size windowSize = getWindowSize();
+
     center = Offset(windowSize.width / 2, windowSize.height / 2);
   }
 
@@ -82,13 +83,12 @@ class LayerModel {
     );
   }
 
-  void randomize(){
-      Size windowSize =
+  void randomize() {
+    Size windowSize =
         MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
-    double halfWidth = windowSize.width /2;
-    double halfHeight  = windowSize.height / 2;
-    for(int i = 0 ; i < mainPoints.length; i++){
-
+    double halfWidth = windowSize.width / 2;
+    double halfHeight = windowSize.height / 2;
+    for (int i = 0; i < mainPoints.length; i++) {
       double randomX = Random.secure().nextDouble() * halfWidth;
       double randomY = Random.secure().nextDouble() * halfHeight;
       mainPoints[i] = Offset(randomX, randomY);
