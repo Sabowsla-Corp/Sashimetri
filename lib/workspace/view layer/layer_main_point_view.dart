@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:sashimetri/time%20line/time_line_number.dart';
+
 import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
-import 'package:sashimetri/workspace/view%20layer/toggled_romboid.dart';
 
 import 'layer_point_view.dart';
 

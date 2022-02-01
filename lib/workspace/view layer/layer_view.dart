@@ -5,7 +5,6 @@ import 'package:sashimetri/workspace/metrioptionsviews/color_palette.dart';
 import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
 import 'package:sashimetri/workspace/view%20layer/layer_main_point_view.dart';
 
-import '../../locator.dart';
 import 'delete_layer.dart';
 import 'layer_icon.dart';
 import 'layer_option.dart';
