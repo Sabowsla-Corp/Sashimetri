@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sashimetri">
+    package="com.sabowsla.sashimetri">
    <application
         android:label="sashimetri"
         android:icon="@mipmap/launcher_icon">

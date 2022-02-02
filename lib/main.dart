@@ -29,3 +29,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//TODO: make the layers painter instanceable so it doesnt redraws all layers when 1 layer change and also for the bloom efect to work for every layer
+

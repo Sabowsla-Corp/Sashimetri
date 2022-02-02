@@ -71,7 +71,7 @@ class LayerModel {
   }
 
   LayerModel randomLayer() {
-    double randomX = Random.secure().nextDouble() * 300;
+    double randomX = Random.secure().nextDouble() * 100;
     return LayerModel(
       mainPoints: [
         Offset(randomX, randomX),
