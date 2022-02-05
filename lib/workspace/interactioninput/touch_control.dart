@@ -21,12 +21,11 @@ class TouchControlState extends State<TouchControl> {
 
     void _handlePanUpdate(DragUpdateDetails details) {
       model.dragLayerPoint(details.delta, nearestMetriIndex);
-      print("Last Update");
     }
 
     void _handlePanStart(DragStartDetails details) {
       Offset center = model.selectedLayer().center;
-      var mainPoints = model.selectedLayer().mainPoints;
+      List<Offset> mainPoints = model.selectedLayer().mainPoints(0);
       setState(
         () {
           nearestMetriIndex = nearestPointToTouch(
@@ -38,7 +37,6 @@ class TouchControlState extends State<TouchControl> {
     }
 
     void _handlePanEnd(DragEndDetails details) {
-      print("Pan Ended");
       model.handlePanEnd();
     }
 

@@ -24,11 +24,11 @@ class _ProjectPageState extends State<ProjectPage> {
             child: Stack(
               children: [
                 TouchControl(),
-                MovablePanel(),
+               MovablePanel(),
               ],
             ),
           ),
-          TimeLineInspector(),
+          TimeLineInspector(appData: model,),
         ],
       ),
     );

@@ -141,7 +141,7 @@ class _LayerViewState extends State<LayerView> {
                 ],
               ),
               LayerMainPointsView(
-                mainPoints: layerModel.mainPoints,
+                mainPoints: layerModel.mainPoints(0),
                 expanded: expanded,
               ),
               ColorPalette(

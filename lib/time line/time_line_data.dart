@@ -5,7 +5,8 @@ import 'package:sashimetri/models/utils.dart';
 class TimeLineData {
   double time = 1;
   double startTime = 1;
-  int duration = 30;
+  int duration = 5;
+  int frame = 0;
 
   TimeLineData();
 

@@ -27,21 +27,14 @@ class AppData extends Model {
   BlendMode blendMode = BlendMode.srcOver;
   Offset canvasCenter = Offset(0, 0);
   Timer? timer;
-  AnimationController? animationController;
+
   List<LayerModel> proyectLayers = [
-    LayerModel().randomLayer(),
+    LayerModel(propertiesOverTime: []).randomLayer(),
   ];
 
-  void animateTimeLine() {
-    /*
-    timer = Timer.periodic(
-        Duration(
-          milliseconds: 1000 ~/ timeLineData.frameFrate,
-        ), (timer) {
-      timeLineData.nextFrame();
-      notifyListeners();
-    });
-    */
+  void updateTimeLineFrame(int frame) {
+    timeLineData.frame = frame;
+    notifyListeners();
   }
 
   void stopTimeLineAnimation() {
@@ -87,7 +80,7 @@ class AppData extends Model {
   }
 
   void randomize(LayerModel layerModel) {
-    layerModel.randomize();
+    //layerModel.randomize();
     repaintOnce();
   }
 
@@ -174,7 +167,7 @@ class AppData extends Model {
   }
 
   void setLayerColor(Color newColor, LayerModel layerModel) {
-    layerModel.changeColor(newColor);
+    layerModel.setColor(timeLineData.frame, newColor);
     repaintOnce();
   }
 
@@ -186,7 +179,7 @@ class AppData extends Model {
     proyectLayers.forEach((element) {
       element.deselect();
     });
-    var newLayer = LayerModel(mainPoints: []).randomLayer();
+    var newLayer = LayerModel(propertiesOverTime: []).randomLayer();
     proyectLayers.add(newLayer);
     _selectedLayer = proyectLayers.length - 1;
     repaintOnce();

@@ -17,7 +17,7 @@ class _MovablePanelState extends State<MovablePanel> {
 
   @override
   Widget build(BuildContext context) {
-    bool onDragView = true;
+    bool onDragView = false;
     return Stack(
       children: [
         if (onDragView) BottomDropPreview(),

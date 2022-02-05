@@ -33,11 +33,11 @@ class _ColorPaletteState extends State<ColorPalette> {
         ),
         itemBuilder: (BuildContext context, int index) {
           Color currentColor = Colors.primaries[index];
-          bool selected = widget.layerModel.color == currentColor;
+          
           var br25 = BorderRadius.circular(25);
           return AnimatedContainer(
             duration: Duration(milliseconds: 250),
-            margin: EdgeInsets.all(selected ? 2 : 5),
+            margin: EdgeInsets.all(2),
             decoration: BoxDecoration(
               borderRadius: br25,
               color: Colors.primaries[index],
@@ -48,7 +48,7 @@ class _ColorPaletteState extends State<ColorPalette> {
               child: InkWell(
                 borderRadius: br25,
                 child: Padding(
-                  padding: EdgeInsets.all(selected ? 2 : 5),
+                  padding: EdgeInsets.all( 2),
                   child: Text(""),
                 ),
                 onTap: () {

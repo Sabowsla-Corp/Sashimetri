@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/time%20line/time_line_body.dart';
 import 'package:sashimetri/time%20line/time_line_data.dart';
 
 import 'time_line_head.dart';
 
 class TimeLineInspector extends StatefulWidget {
-  const TimeLineInspector({Key? key}) : super(key: key);
+  final AppData appData;
+  const TimeLineInspector({Key? key, required this.appData}) : super(key: key);
 
   @override
   State<TimeLineInspector> createState() => _TimeLineInspectorState();
@@ -15,10 +17,11 @@ class TimeLineInspector extends StatefulWidget {
 class _TimeLineInspectorState extends State<TimeLineInspector>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  TimeLineData timeLineData = TimeLineData();
+
   @override
   void initState() {
     super.initState();
+    TimeLineData timeLineData = widget.appData.timeLineData;
     animationController = AnimationController(
       vsync: this,
       duration: Duration(
@@ -29,7 +32,8 @@ class _TimeLineInspectorState extends State<TimeLineInspector>
     );
     animationController.addListener(() {
       setState(() {
-        print("Animating The Timeline");
+        widget.appData
+            .updateTimeLineFrame(animationController.value.truncate());
       });
     });
   }

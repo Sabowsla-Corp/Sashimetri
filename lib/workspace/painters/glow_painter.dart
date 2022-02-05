@@ -11,7 +11,11 @@ class GlowPainter extends CustomPainter {
     final paint = new Paint();
 
     for (int i = 0; i < model.proyectLayers.length; i++) {
-      model.proyectLayers[i].draw(paint, canvas);
+      model.proyectLayers[i].draw(
+        paint,
+        canvas,
+        model.timeLineData.frame,
+      );
     }
   }
 

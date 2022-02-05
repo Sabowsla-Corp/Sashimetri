@@ -12,7 +12,7 @@ class TouchControlPainter extends CustomPainter {
     paint.blendMode = model.blendMode;
     for (int i = 0; i < model.proyectLayers.length; i++) {
       model.proyectLayers.forEach((layer) {
-        layer.draw(paint, canvas);
+        layer.draw(paint, canvas, model.timeLineData.frame);
       });
     }
   }
