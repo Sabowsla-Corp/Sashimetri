@@ -65,7 +65,7 @@ class LayerModel {
   void changeColor(Color newColor, int frame) {}
 
   LayerModel randomLayer() {
-    double randomX = Random.secure().nextDouble() * 300;
+    double randomX = Random.secure().nextDouble() * 100;
     return LayerModel(
       selected: true,
       grid: createSquaredGrid(50, 10),

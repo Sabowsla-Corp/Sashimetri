@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sashimetri/models/app_data.dart';
 import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
 import 'time_line_number.dart';
-import 'dart:math' as math;
 
 class TimeLineHead extends StatelessWidget {
   const TimeLineHead({

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sashimetri/models/app_data.dart';
-import 'package:sashimetri/workspace/metrioptionsviews/styles.dart';
 
 class TimeLineProgressBar extends StatelessWidget {
   const TimeLineProgressBar({Key? key, required this.animationController})

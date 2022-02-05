@@ -1,7 +1,3 @@
-import 'dart:async';
-
-import 'package:sashimetri/models/utils.dart';
-
 class TimeLineData {
   double time = 1;
   double startTime = 1;
